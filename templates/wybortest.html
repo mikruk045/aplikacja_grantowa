@@ -1,0 +1,64 @@
+{% extends "basetextchoice.html" %}
+{% block subdomain %}Wybór testu{% endblock %}
+{% block pageContent %}
+        <div class="contentPage">
+            <div class="header" style="background-image: url(/static/img/tlahome/koparka.jpg);">
+                <div class="headerContent">
+                    <div class="headerTitle">Wybór działu testu</div>
+                    <div class="headerDescription">Wybierz dowolny dział testu poniżej lub natychmiast rozpocznij rozwiązywanie testu<br> od pierwszego działu - surowce energetyczne.</div>
+                    <a href="{{ url_for('test_ener') }}" class="startNow">Szybkie rozpoczęcie</a>
+                </div>
+            </div>
+            <div class="tiles">
+                <div class="tilesContent">
+                    <div class="oneTile" style="border-top: 10px solid #99582a;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/brown-coal-4294657_1920.jpg');"></div>
+                        <div class="tileTitle">Surowce energetyczne</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('test_ener') }}" class="listElem">Rozwiąż test</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #ff595e;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/pexels-pixabay-56030.jpg');"></div>
+                        <div class="tileTitle">Surowce metaliczne</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('test_met') }}" class="listElem">Rozwiąż test</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #ffca3a;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/etna-3749522_1920.jpg');"></div>
+                        <div class="tileTitle">Surowce chemiczne</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('test_chem') }}" class="listElem">Rozwiąż test</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #8ac926;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/skala.jpg');"></div>
+                        <div class="tileTitle">Surowce skalne</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('test_skal') }}" class="listElem">Rozwiąż test</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #1982c4;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/volcano-1807514_1920.jpg');"></div>
+                        <div class="tileTitle">Wody i solanki</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('test_wodysol') }}" class="listElem">Rozwiąż test</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #B4B4B4;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/dragline-195440_1920.jpg');"></div>
+                        <div class="tileTitle">Test końcowy</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('test_end') }}" class="listElem">Rozwiąż test</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="goUpContent">
+                <div class="goUp">
+                    <img src="/static/img/icons/arrowblackUP.svg" alt="">
+                </div>
+            </div>
+        </div>
+        {% endblock %}

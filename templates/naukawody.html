@@ -1,0 +1,136 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Wody i solanki{% endblock %}
+{% block urlPREV %}{{ url_for('learn_industry') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_coal') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    let l3 = '{{ dane[2] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    l3 = l3.substring(1, l3.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+    let out3 = JSON.parse(l3);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out1, watermarkershort, 1);
+    generatePoints(out2, watermarkershort, 1);
+
+    let lp1 = L.featureGroup();
+    generatePolygons(out3, '#5A9A45', lp1);
+    // generatePolygons(out2, '#008DB9', lp2);
+    // generatePolygons(out3, '#B82C06', lp3);
+
+    mapa.addLayer(markers);
+    mapa.addLayer(lp1);
+
+    initiateStyle(markers, "Wody", 0, 1);
+    initiateStyle(lp1, "Solanki", 1, 0, 0, 0, '#5A9A45');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Mineralne</button>
+<button class="descButton">Lecznicze</button>
+<button class="descButton">Termalne</button>
+<button class="descButton">Solanki</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>WODY MINERALNE</h4>
+    <p>Wody mineralne to wody, w&nbsp;których składzie <strong>na jeden litr przypada 1&nbsp;gram rozpuszczonych związków mineralnych.</strong> Jeśli ilość związków mieści się w&nbsp;przedziale 0,5&nbsp;-&nbsp;1&nbsp;g/l to woda ta jest słabo zmineralizowana. Ze względu na ilość rozpuszczonego w&nbsp;wodzie węglanu wapnia i&nbsp;magnezu określa się również <strong>twardość wody,</strong> gdzie wody podziemne zawierające poniżej 0,08&nbsp;g/l określane są jako miękkie, a&nbsp;jeśli wartość przekracza 0,2&nbsp;g/l, wówczas woda ta określana jest jako twarda. Woda o&nbsp;wysokiej twardości na przykład podczas gotowania pozostawia na naczyniach wapienny osad, a&nbsp;w&nbsp;jej reakcji z&nbsp;mydłem nie powstanie piana.</p>
+    <p>Występowanie wód mineralnych sprawia, że w&nbsp;miejscach ich wydobycia powstają uzdrowiska lub sanatoria. Tego typu ośrodki przyciągają turystów lub osoby chore, którzy chcą wypróbować “cudownych mocy wód”, dzięki czemu okoliczne miejscowości stają się bardzo popularne i&nbsp;przede wszystkim są bogactwem turystycznym. Rozbudowa sieci noclegowych, muzeum, gastronomii czy wszelkiego rodzaju parków rozrywki wpływa na zwiększenie urbanizacji, gdyż nowo powstałe ośrodki umożliwiają nowe zatrudnienie. W&nbsp;Polsce właściwości wód mineralnych zaczęto wykorzystywać już ponad 200 lat temu. Powstało wiele legend o&nbsp;rzekomych “Źródłach młodości”, co sprawiło, że z&nbsp;roku na rok coraz więcej ludzi korzystało z&nbsp;uzdrowisk, przede wszystkim seniorzy i&nbsp;osoby z&nbsp;problemami zdrowotnymi.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Dowgiałło, Kleczkowski, Macioszczyk, Różkowski (red.), Warszawa 2002 <i>Słownik hydrogeologiczny</i>, PIG</li>
+        <li><a href="https://www.pgi.gov.pl/wody-mineralne/przydatne/wody-lecznicze.html">www.pgi.gov.pl/wody-mineralne/przydatne/wody-lecznicze.html (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>WODY LECZNICZE</h4>
+    <p>Wody lecznicze <strong>to wody głębinowe, które cechuje czystość pod względem chemicznym i&nbsp;mikrobiologicznym.</strong> Na powierzchnię ziemi wypływają w&nbsp;postaci małych źródełek. O&nbsp;wodzie można mówić, że jest lecznicza gdy zawiera:</p>
+    <ul>
+    <li>nie mniej niż 1&nbsp;g/l rozpuszczonych składników mineralnych, lub</li>
+    <li>nie mniej niż 10&nbsp;mg/l jonu żelaza, lub</li>
+    <li>nie mniej niż 2&nbsp;mg/l jonu fluorowego, lub</li>
+    <li>nie mniej niż 1&nbsp;mg/l jonu jodkowego, lub</li>
+    <li>nie mniej niż 1&nbsp;mg/l siarki dwuwartościowej, lub</li>
+    <li>nie mniej niż 70&nbsp;mg/l kwasu metakrzemowego, lub</li>
+    <li>nie mniej niż 74&nbsp;Bq (Berkel)/l radonu (wody radonowe), lub</li>
+    <li>nie mniej niż 250&nbsp;mg/l niezwiązanego dwutlenku węgla.</li>
+    </ul>
+    <p>Aby woda została uznana za leczniczą, musi posiadać właściwości potwierdzone badaniami klinicznymi i&nbsp;długotrwałą obserwacją. Dodatkowo <strong>wody lecznicze dzielą się ze względu na:</strong></p>
+    <ul>
+    <li>warunki geologiczne i hydrogeologiczne kształtujące skład wód głębinowych,</li>
+    <li>ilość składników,</li>
+    <li>cechy fizyczne.</li>
+    </ul>
+    <p>Do najpopularniejszych wód leczniczych w&nbsp;Polsce należą:</p>
+    <ul>
+    <li><strong>szczawy</strong> - zawierające tlenek węgla (IV), kwaśne węglany (IV) wapnia i&nbsp;sodu;</li>
+    <li><strong>szczawy żelaziste</strong> - dodatkowo zawierające związki żelaza;</li>
+    <li><strong>wody chlorkowo-sodowe</strong> - zawierające chlorek sodu, jod, brom i&nbsp;żelazo;</li>
+    <li><strong>wody siarkowe</strong> - zawierające siarczki lub siarczany sodu i&nbsp;wapnia oraz siarkowodór;</li>
+    </ul>
+    <p>Wody te mają szerokie zastosowanie w&nbsp;medycynie. W&nbsp;zależności od składu przynoszą ulgę w&nbsp;wielu chorobach. Pomagają w&nbsp;leczeniu wrzodów żołądka, nerek, cukrzycy oraz poprawiają metabolizm. Kuracje w&nbsp;specjalnych ośrodkach trwają zazwyczaj do 21&nbsp;dni. Wody lecznicze wpływają również na fizjologię organizmu, neutralizując lub zakwaszając treść żołądka, przyśpieszają pracę jelit, a&nbsp;także uzupełniają brakujące minerały. Jednak każde stosowanie powinno być skonsultowane z&nbsp;lekarzem, gdyż nieodpowiedni dobór składników i&nbsp;ilości może wpłynąć negatywnie na organizm.</p>
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>Wody lecznicze występują w&nbsp;całej Polsce, jednak <strong>większość znajduje się na południu kraju, na przykład w&nbsp;Sudetach i&nbsp;Karpatach,</strong> gdzie zlokalizowanych jest <strong>ponad 70%</strong> wszystkich uzdrowisk.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>xWięckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Dowgiałło, Kleczkowski, Macioszczyk, Różkowski (red.), Warszawa 2002 <i>Słownik hydrogeologiczny</i>, PIG</li>
+        <li><a href="https://www.pgi.gov.pl/wody-mineralne/przydatne/wody-lecznicze.html">www.pgi.gov.pl/wody-mineralne/przydatne/wody-lecznicze.html (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>WODY TERMALNE</h4>
+    <p>Wody termalne <strong>to również wody lecznicze, ale o&nbsp;podwyższonej temperaturze.</strong> Przyjmuje się, że należą do nich wody, których <strong>temperatura przy źródle jest wyższa niż 20°C.</strong> Zależne jest to od kilku czynników:</p>
+    <ul>
+    <li>głębokości warstw wodonośnych,</li>
+    <li>strumienia cieplnego,</li>
+    <li>strumienia cieplnego.</li>
+    </ul>
+    <p>Zastosowanie znalazły głównie w medycynie i&nbsp;w&nbsp;produkcji kosmetyków. Mają właściwości kojące i&nbsp;nawilżają skórę, ale pomagają również w&nbsp;leczeniu trądziku czy łuszczycy. W&nbsp;uzdrowiskach wykorzystywane są w&nbsp;kąpielach rehabilitacyjnych, gdyż wspomagają regenerację skóry, oraz niwelują napięcie mięśni.</p>
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>Korzystne warunki do występowania wód termalnych są <strong>na Niżu Polskim</strong> (Ciechocinek), <strong>w&nbsp;Sudetach</strong> (Cieplice Śląskie-Zdrój, Duszniki-Zdrój, Grabina czy Lądek-Zdrój) oraz <strong>w&nbsp;Karpatach</strong> (Rabka-Zdrój, Poręba Wielka, Ustroń czy Lubiatówka). Eksploatowane są jednak tylko w&nbsp;kilku miejscach ze względów ekonomicznych oraz geologicznych.</p>
+    <p>Występujące w&nbsp;Sudetach wody charakteryzują się następującymi właściwościami:</p>
+    <ul>
+    <li>w&nbsp;Cieplicach Śląskich-Zdroju - temperatura waha się w&nbsp;przedziale 20-87°C, a mineralizacja wynosi 0,4-0,6&nbsp;g/dm<sup>3</sup></li>
+    <li>w&nbsp;Lądku-Zdroju - temperatura wód ma ok. 45°C, a&nbsp;mineralizacja - 0,2&nbsp;g/dm<sup>3</sup></li>
+    .</ul>
+    <p>W&nbsp;Karpatach wody w&nbsp;Rabce-Zdroju i&nbsp;Porębie Wielkiej mają temperaturę 28-42°C, a&nbsp;ich mineralizacja wynosi 24-28&nbsp;g/dm<sup>3</sup>.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Dowgiałło, Kleczkowski, Macioszczyk, Różkowski (red.), Warszawa 2002 <i>Słownik hydrogeologiczny</i>, PIG</li>
+        <li><a href="https://www.pgi.gov.pl/wody-mineralne/przydatne/wody-termalne.html">www.pgi.gov.pl/wody-mineralne/przydatne/wody-termalne.html (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>SOLANKI</h4>
+    <p>Solanki <strong>to wysoko zmineralizowane wody podziemne</strong>, w&nbsp;których głównymi składnikami są <strong>jony chlorkowe, sodowe i&nbsp;wapniowe,</strong> a&nbsp;mineralizacja wynosi nie mniej niż 35&nbsp;g/l. Najlepsze właściwości mają jednak gdy mineralizacja wynosi powyżej 200&nbsp;g/l (co najmniej: 80-100&nbsp;mg/l jodu, 200-250&nbsp;mg/l bromu, 2&nbsp;g/l magnezu, 1&nbsp;g/l potasu lub 10&nbsp;mg/l litu). Solanki, które mają wysoką zawartość chloru (Cl-Na lub Cl-Na-Ca) wykorzystywane są do leczenia chorób reumatycznych, urazów narządów ruchu, schorzeń neurologicznych czy chorób układu oddechowego.</p>
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>Solanki występują <strong>niemal na terenie całej Polski</strong> (za wyjątkiem Sudetów, Gór Świętokrzyskich i&nbsp;fragmentów platformy prekambryjskiej), a&nbsp;celach przemysłowych <strong>wydobywane są w&nbsp;Łapczycy</strong> koło Łodzi. Produkuje się z&nbsp;nich głównie sole lecznicze i&nbsp;solanki kąpielowe. Perspektywiczne jest również wydobycie solanek z&nbsp;Zapadliska Przedkarpackiego, gdyż wody te znalazły by szerokie zastosowanie w&nbsp;przemyśle chemicznym m.in. w&nbsp;celu pozyskania magnezu, potasu czy bromu.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Dowgiałło, Kleczkowski, Macioszczyk, Różkowski (red.), Warszawa 2002 <i>Słownik hydrogeologiczny</i>, PIG</li>
+        <li><a href="https://www.pgi.gov.pl/wody-mineralne/przydatne/solanki.html">www.pgi.gov.pl/wody-mineralne/przydatne/solanki.html (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+</div>
+{% endblock %}

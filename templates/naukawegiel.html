@@ -1,0 +1,123 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Węgiel kamienny i brunatny{% endblock %}
+{% block urlPREV %}{{ url_for('learn_water') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_oil') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    let l3 = '{{ dane[2] | tojson }}';
+    let l4 = '{{ dane[3] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    l3 = l3.substring(1, l3.length-1);
+    l4 = l4.substring(1, l4.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+    let out3 = JSON.parse(l3);
+    let out4 = JSON.parse(l4);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out2, pickaxemarkershort, pkt);
+    generatePoints(out4, pickaxemarkershort, pkt);
+
+
+    let lp1 = L.featureGroup();
+    let lp2 = L.featureGroup();
+    generatePolygons(out1, '#202020', lp1);
+    generatePolygons(out3, '#e26d5c', lp2);
+
+    mapa.addLayer(lp1);
+    mapa.addLayer(lp2);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp2, "Węgiel brunatny", 1, 0, 0, 0, '#202020');
+    initiateStyle(lp1, "Węgiel kamienny", 1, 0, 0, 0, '#e26d5c');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Węgiel kamienny</button>
+<button class="descButton">Węgiel brunatny</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>WĘGIEL KAMIENNY</h4>
+<p>Węgiel kamienny jako <strong>surowiec energetyczny</strong> uchodzi za naturalne paliwo pochodzenia roślinnego. Jego złoża powstały już w erze paleozoicznej ze <strong>szczątków obumarłych roślin</strong>, które następnie na przestrzeni milionów lat przekształciły się w&nbsp;węgiel, w wyniku podwyższonej temperatury oraz ciśnienia. Ta skała osadowa zawiera w sobie do 98% węgla pierwiastkowego. Dodatkowo wchodzi w skład elementarnych wypełniaczy skorupy ziemskiej. Jego wartość kaloryczna uzależniona jest od położenia, dla przykładu węgiel wydobywany na Śląsku ma wysoką wartość opałową - powyżej 6000 kcal/kg, a&nbsp;węgiel lubelski - około 3500 kcal/kg.</p>
+<img class="imageRaster" src="/static/img/text/wkamienny.jpg" alt="w_kamienny">
+<p><strong>WYSTĘPOWANIE:</strong></p>
+<p>W Polsce wydobycie złóż tego surowca skupione jest w trzech zagłębiach:</p>
+<ul>
+<li><strong>Zagłębie Górnośląskie</strong> – gdzie znajduje się około 80% zasobów krajowych;</li>
+<li><strong>Zagłębie Lubelskie</strong> – eksploatacja jest tam niewielka, ale z szansami na rozwój;</li>
+<li><strong>Zagłębie Dolnośląskie</strong> – eksploatacja zaniechana ze względu na nieopłacalność wydobycia; </li>
+</ul>
+<p>Węgiel kamienny wykorzystywany jest w <strong>przemyśle energetycznym</strong> – w&nbsp;elektrowniach cieplnych (udział w&nbsp;produkcji energii elektrycznej przekracza 50%). Większość elektrowni opalanych węglem kamiennym znajduje się na południu Polski, w&nbsp;pobliżu kopalń. Największą elektrownią cieplną wykorzystującą węgiel kamienny jest ta znajdująca się w Kozienicach, posiadająca moc 3980 MW.</p>
+<img class="imageVector" src="/static/img/text/kamienny.svg" alt="w_kamienny_tabela">
+<p><strong>WYDOBYCIE:</strong></p>
+<p>W latach osiemdziesiątych XX wieku, Polska uchodziła za jednego z&nbsp;<strong>głównych producentów węgla kamiennego</strong>. W&nbsp;2016 roku wydobycie sięgało około 70 mln ton, dla porównania w&nbsp;1980 było na poziomie 193 mln ton. Zasoby, które pozostają w ziemi szacunkowo powinny wystarczyć na około czterdzieści pięć lat, a&nbsp;wynoszą około 58 mln ton. Czynnikiem spowalniającym wydobywanie węgla są rosnące koszty owego wydobywania. Złoża ulokowane są coraz głębiej, surowiec ma niższą jakość oraz dodatkowo problematyczna jest odpowiednia kadra pracownicza.</p>
+<p>Węgiel kamienny wydobywany jest w&nbsp;Polsce obecnie z <strong>20 kopalni metodą głębinową</strong>. Metoda ta polega na tworzeniu pionowych szybów i poziomych korytarzy prowadzonych wzdłuż pokładów. Znaczna większość, ponieważ 90% całej eksploatacji prowadzone jest w&nbsp;Górnośląskim Zagłębiu Węglowym, a&nbsp;tylko 10% pochodzi z&nbsp;Bogdanki w&nbsp;Lubelskim Zagłębiu Węglowym.</p>
+<p> Większość należy do różnych przedsiębiorstw, takich jak:</p>
+<ul>
+<li>Jastrzębska Spółka Węglowa (4 kopalnie)</li>
+<li>Polska Grupa Górnicza (8 kopalń, w tym KWK ROW - największa kopalnia w Polsce, z siedzibą w Rybniku)</li>
+<li>Tauron Wydobycie (3 kopalnie)</li>
+<li>Przedsiębiorstwo Górnicze Silesia (1 kopalnia)</li>
+<li>Lubelski Węgiel Bogdanka S.A (1 kopania)</li>
+<li>Węglokoks (1 kopalnia)</li>
+<li>Zakład Górniczy Siltech Sp. z o.o. </li>
+<li>Zakład Górniczy Eko- Plus Sp. z o.o.</li>
+</ul>
+<p>Z roku na rok <strong>wydobycie węgla kamiennego maleje</strong>, wraz z&nbsp;nim zapotrzebowanie do elektrowni cieplnych, mimo to krajowe zasoby węgla nie wystarczą, aby pokryć popyt. Z&nbsp;uwagi na dane warunki Polska <strong>zmuszona jest do współpracy handlowej</strong> z&nbsp;innymi krajami. Obecnie głównymi partnerami handlowymi Polski w&nbsp;eksporcie węgla kamiennego są: Niemcy, Czechy oraz Austria. Import tego surowca najczęściej pochodzi z&nbsp;Rosji, Australii lub Czech. </p>
+<hr class='bibHR'>
+<h4 class="bibTitle">Źródło:</h4>
+<ul class='bibContent'> 
+    <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+    <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+    <li>Freese B., 2016 <i>Coal: A Human History</i>, New York: Basic Books</li>
+    <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12580-wegiel-kamienny.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12580-wegiel-kamienny.html (dostęp: 31.05.2021 r.)</a></li>
+    <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf (dostęp: 31.05.2021 r.)</a></li>
+</ul>
+<br>
+<!-- </p> -->
+</div>
+<div class="descPage">
+    <h4>WĘGIEL BRUNATNY</h4>
+    <p>Węgiel brunatny to <strong>skała osadowa pochodzenia roślinnego</strong>. Powstała w&nbsp;neogenie (era kenozoiczna) ze szczątków obumarłych roślin. Węgiel brunatny zawiera od 58 do 78% pierwiastka węgla. Ten znajdujący się w&nbsp;Polsce cechuje się małą kalorycznością (1800-2100 kcal/kg) i&nbsp;dużą zawartością wody. Ze względów ekonomicznych transport danego surowca na długie odległości nie jest prowadzony, dlatego <strong>elektrownie cieplne znajdują się w pobliżu kopalni</strong>. </p>
+    <img class="imageRaster" src="/static/img/text/wbrunatny.jpg" alt="w_brunatny">
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>W Polsce wydobycie złóż tego surowca prowadzone jest <strong>głównie metodą odkrywkową</strong>, gdyż jest ona najtańsza, a&nbsp;polega na usuwaniu nakładu (nawet do 400 metrów grubości) i&nbsp;eksploatacja pokładu z&nbsp;powierzchni ziemi za pomocą wielkich koparek. </p>
+    <p>Wydobycie skupione jest w trzech zagłębiach:</p>
+    <ul>
+    <li><strong>Złębie Bełchatowskie</strong> – największe pokłady, dużej miąższości;</li>
+    <li><strong>Zagłębie Turoszowskie</strong> – pokłady o&nbsp;znacznej miąższości, płytko zalegające;</li>
+    <li><strong>Złębie Konińskie</strong> – mniejsze złoża, o&nbsp;mniejszej miąższości;</li>
+    </ul>
+    <p>Dodatkowo węgiel brunatny występuje również w południowo-zachodniej części Wyżyny Krakowsko-Częstochowskiej oraz w środkowej części Niecki Północnosudeckiej, jednak eksploatacja tam jest <strong>nieopłacalna</strong> ze względu na niską jakość surowca.</p>
+    <p>Węgiel brunatny wykorzystywany jest w przemyśle energetycznym, głównie w elektrowniach cieplnych (udział w produkcji energii elektrycznej przekracza 30%).</p>
+    <p>Elektrownia cieplna w&nbsp;Bełchatowie jest największą w&nbsp;Unii Europejskiej i&nbsp;piątą na świecie elektrownią opalaną węglem brunatnym, z&nbsp;mocą 5298 MW.</p>
+    <img class="imageVector" src="/static/img/text/brunatny.svg" alt="w_brunatny_tabela">
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p>Wydobycie węgla brunatnego w&nbsp;Polsce od wielu lat utrzymuje się na jednym poziomie, około 60-65 mln ton. Surowiec ten daje <strong>najtańszą energię elektryczną</strong> ( o ⅓ tańszą od węgla kamiennego), co skutkuje ciągłą eksploatacją.</p>
+    <p>Węgiel brunatny wydobywany jest w 4 rejonach w Polsce:</p>
+    <ul>
+    <li>rejon Bełchatowa - KWB „Bełchatów” - <strong>największa</strong> kopalnia w&nbsp;Polsce, dająca 67% krajowego wydobycia (węgiel tam ma najlepszą jakość i&nbsp;warunki zalegania ze wszystkich kopalni);</li>
+    <li>rejon Konina - m.in. KWB „Pątnów”, KWB „Adamów”, KWB „Tomisławice”;</li>
+    <li>rejon Turowa - KWB „Turów” (Bogatynia);</li>
+    <li>rejon Sieniawy - KWB „Sieniawa”;</li>
+    </ul>
+    <p>W 2014 roku Polska znajdowała się na <strong>4 miejscu na świecie</strong> pod względem wydobycia węgla brunatnego. Główne kraje eksportowe to: Niemcy, Czechy, Francja, Wielka Brytania, natomiast import najczęściej pochodzi z Niemiec lub Czech.</p>
+    <hr class='bibHR'>
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12585-wegiel-brunatny.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12585-wegiel-brunatny.html (dostęp: 31.05.2021 r.)</a></li>            <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+{% endblock %}

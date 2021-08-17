@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nauka | {% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/js/Leaflet.markercluster-1.4.1/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <link rel="stylesheet" href="/static/js/Leaflet.Basemaps-main/L.Control.Basemaps.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reinvented-color-wheel@0.3.1/css/reinvented-color-wheel.min.css">
+    <link rel="stylesheet" href="/static/css/stylelearning.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/hosuaby/Leaflet.SmoothMarkerBouncing@v2.0.0/dist/bundle.js" crossorigin="anonymous"></script>
+    <script src="/static/js/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="/static/js/Leaflet.Basemaps-main/L.Control.Basemaps.js"></script>
+    <script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="bluebar"></div>
+        <div class="upperBar">
+            <div class="leftBar">
+                <div class="pageTitle">Naturalne bogactwa Polski</div>
+                <div class="verticalSep"></div>
+                <div class="subdomain">{{ self.title() }}</div>
+                <div class="lessonsArea">
+                    <a href="{% block urlPREV %}{% endblock %}" class="previousL"><img src="/static/img/arrowleftBLUE.svg" class="leftarrow" alt=""></a>
+                    <a href="{% block urlNEXT %}{% endblock %}" class="nextL">
+                        <img src="/static/img/arrowrightWHITE2.svg" class="rightarrow" alt="">
+                        <div style="grid-area: nextText; margin: auto;">Następna lekcja</div>
+                    </a>
+                </div>
+            </div>
+            <div class="rightBar">
+                <div class="hamburgermenu"><img src="/static/img/hamburgermenu.svg" alt=""></div>
+                <div class="hamburgermenucontent">
+                    <a class="active" href="{{ url_for('index') }}">Strona główna</a>
+                    <hr class="menuline">
+                    <a href="#" class="kategorieHAM">Nauka</a>
+                    <div class="dropdown-contentHAM podkategorieHAM">
+                        <a href="#" class="kategorie hamkategorie">wody i solanki</a>
+                        <div class="podkategorie hamcat">
+                            <a href="{{ url_for('learn_water') }}">Wody, solanki</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="#" class="kategorie hamkategorie">surowce energetyczne</a>
+                        <div class="podkategorie hamcat active" style="display: block">
+                            <a href="{{ url_for('learn_coal') }}">Węgiel kamienny i brunatny</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_oil') }}">Torf i ropa naftowa</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_gas') }}">Gaz ziemny</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="#" class="kategorie hamkategorie">surowce metaliczne</a>
+                        <div class="podkategorie hamcat">
+                            <a href="{{ url_for('learn_ores') }}">Złoto, srebro, miedź i żelazo</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_tin') }}">Ruda cynku i ołowiu</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="#" class="kategorie hamkategorie">surowce skaliste</a>
+                        <div class="podkategorie hamcat">
+                            <a href="{{ url_for('learn_plaster') }}">Gliny, gips, anhydryt</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="#" class="kategorie hamkategorie">surowce chemiczne</a>
+                        <div class="podkategorie hamcat">
+                            <a href="{{ url_for('learn_sulfur') }}">Siarka</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_salt') }}">Sól kamienna i potasowa</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_limestone') }}">Wapienie i margle</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="{{ url_for('learn_industry') }}" class="kategorieWithout">okręgi przemysłowe</a>
+                        <hr class="menuline">
+                        <a href="{{ url_for('learn_oze') }}" class="kategorieWithout">OZE i środowisko</a>
+                    </div>
+                    <hr class="menuline">
+                    <a href="#" class="kategorieHAM">Test</a>
+                    <div class="dropdown-content2HAM podkategorieHAM">
+                            <a href="{{ url_for('test_wodysol') }}" class="kategorieTest">wody i solanki</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_ener') }}" class="kategorieTest">surowce energetyczne</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_met') }}" class="kategorieTest">surowce metaliczne</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_skal') }}" class="kategorieTest">surowce skaliste</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_chem') }}" class="kategorieTest">surowce chemiczne</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_end') }}" class="kategorieTest">test ogólny</a>
+                    </div>
+                    <hr class="menuline">
+                    <a href="{{ url_for('map') }}">Tryb swobodny</a>
+                    <hr class="menuline">
+                    <a href="{{ url_for('contact') }}">Kontakt</a>
+                </div>
+                <ul class="navMenu">
+                    <li><a class="active" href="{{ url_for('index') }}">Strona główna</a></li>
+                    <li class="nauka">
+                        <a href="{{ url_for('learn') }}">Nauka</a>
+                        <div class="dropdown-content">
+                            <a href="#" class="kategorie">wody i solanki</a>
+                            <div class="podkategorie">
+                                <a href="{{ url_for('learn_water') }}">Wody, solanki</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="#" class="kategorie">surowce energetyczne</a>
+                            <div class="podkategorie active" style="display: block">
+                                <a href="{{ url_for('learn_coal') }}">Węgiel kamienny i brunatny</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_oil') }}">Torf i ropa naftowa</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_gas') }}">Gaz ziemny</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="#" class="kategorie">surowce metaliczne</a>
+                            <div class="podkategorie">
+                                <a href="{{ url_for('learn_ores') }}">Złoto, srebro, miedź i żelazo</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_tin') }}">Ruda cynku i ołowiu</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="#" class="kategorie">surowce skaliste</a>
+                            <div class="podkategorie">
+                                <a href="{{ url_for('learn_plaster') }}">Gliny, gips, anhydryt</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="#" class="kategorie">surowce chemiczne</a>
+                            <div class="podkategorie">
+                                <a href="{{ url_for('learn_sulfur') }}">Siarka</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_salt') }}">Sól kamienna i potasowa</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_limestone') }}">Wapienie i margle</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('learn_industry') }}" class="kategorieWithout">okręgi przemysłowe</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('learn_oze') }}" class="kategorieWithout">OZE i środowisko</a>
+                        </div>
+                    </li>
+                    <li class="testMode">
+                        <a href="{{ url_for('test') }}">Test</a>
+                        <div class="dropdown-content2">
+                            <a href="{{ url_for('test_wodysol') }}" class="kategorieTest">wody i solanki</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_ener') }}" class="kategorieTest">surowce energetyczne</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_met') }}" class="kategorieTest">surowce metaliczne</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_skal') }}" class="kategorieTest">surowce skaliste</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_chem') }}" class="kategorieTest">surowce chemiczne</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_end') }}" class="kategorieTest">test ogólny</a>
+                        </div>
+                    </li>
+                    <li><a href="{{ url_for('map') }}">Tryb swobodny</a></li>
+                    <li><a href="{{ url_for('contact') }}">Kontakt</a></li>
+                  </ul>
+                <img src="/static/img/geoitifundacja.svg" class="logos" alt="">
+            </div>
+        </div>
+        <div class="sideBar">
+            <div class="controlsarea">
+                <div class="controls">
+                    <div></div>
+                    <abbr title="Informacje o obiekcie">
+                        <button id="tableCTRL" class="learningButton activeButton">
+                            <img src="/static/img/icons/003-table.svg" alt="">
+                            <div>Informacje</div>
+                        </button>
+                        </abbr>
+                        <abbr title="Lista warstw">
+                        <button id="styleCTRL" class="learningButton">
+                            <img src="/static/img/icons/004-paintbrush.svg" alt="" >
+                            <div>Warstwy</div>
+                        </button>
+                    </abbr>
+                        <abbr title="Wyrównaj do zasięgu Polski">
+                        <button id="zoompolandCTRL" class="learningButton">
+                            <img src="/static/img/icons/002-maximize.svg" alt="">
+                        </button>
+                    </abbr>
+                    <abbr title="Przybliż do zaznaczonej warstwy">
+                        <button id="zoomlayerCTRL" class="learningButton" disabled>
+                            <img src="/static/img/icons/001-zoom.svg" alt="">
+                        </button>
+                    </abbr>
+                    <abbr title="Odznacz">
+                        <button id="unselectCTRL" class="learningButton" disabled>
+                            <img src="/static/img/icons/005-close.svg" alt="">
+                        </button>
+                    </abbr>
+                </div>
+                <div class="contentSidebar">
+                    <div id="contentStyle" style="display: none;">
+                        <div class="layerCat">Warstwy punktowe</div>
+                        <hr class="layerCatHR">
+                        <div id="points">
+                        </div>
+                        <div class="layerCat">Warstwy powierzchniowe</div>
+                        <hr class="layerCatHR">
+                        <div id="polygons"></div>
+                    </div>
+                    <div id="contentTable">
+                        <div id="infoBegin">
+                            <img src="/static/img/icons/001-information.svg" class="infoiconMobile" alt="">
+                            Kliknij na wybrany obiekt na mapie, aby wyświetlić w tym miejscu informacje o nim
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="descContent">
+                <div class="descNav">
+                    <div class="descButtons">{% block descBTN %}{% endblock %}</div>
+                    <button class="expand" id="expand"><img id="expandimg" src="/static/img/icons/arrowblackUP.svg" alt=""></button>
+                </div>
+                <div class="descText">{% block descCTNT %}{% endblock %}</div>
+
+            </div>
+            <div class="changemodeMobile">
+                <button class="infoMode activeMode" disabled id="infoMode">Informacje</button>
+                <button class="descMode" id="descMode">Opis lekcji</button>
+            </div>
+
+        </div>
+        <div id="map"></div>
+      </div>
+      <script src="/static/js/learning.js"></script>
+      {% block DBscript %}{% endblock %}
+</body>
+</html>

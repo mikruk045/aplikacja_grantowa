@@ -1,0 +1,69 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Piaski i żwiry{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out2, pickaxemarkershort, pkt);
+
+    let lp1 = L.featureGroup();
+    generatePolygons(out1, '#6e6038', lp1);
+
+    mapa.addLayer(lp1);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Piaski", 1, 0, 0, 0, '#6e6038');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Węgiel kamienny</button>
+<button class="descButton">Węgiel brunatny</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h3>Węgiel kamienny</h3> <br>
+    Węgiel kamienny to naturalne paliwo stałe pochodzenia roślinnego. Jego złoża powstały głównie w karbonie (era paleozoiczna) ze szczątków obumarłych roślin, które w ciągu milionów lat przekształciły się w węgiel kamienny, w wyniku oddziaływania podwyższonej temperatury i ciśnienia. Ta skała osadowa zawiera w sobie do 98% węgla pierwiastkowego. Wypełnia jamy skorupy ziemskiej. W zależności od położenia cechuje go różna wartość kaloryczna, na przykład węgiel wydobywany na Śląsku ma wysoką wartość opałową - powyżej 6000 kcal/kg, a węgiel lubelski - około 3500 kcal/kg.<br><br>
+    
+    <img src="/static/img/materialy/kamienny.svg" alt="" width="100%">
+
+    <h3>Występowanie:</h3> <br>
+    W Polsce wydobycie złóż tego surowca skupione jest w trzech zagłębiach: <br>
+    <ul>
+    <li><b>Zagłębie Górnośląskie</b> – gdzie znajduje się około 80% zasobów krajowych</li> 
+    <li><b>Zagłębie Lubelskie</b> – eksploatacja jest tam niewielka, ale z szansami na rozwój</li>
+    <li><b>Zagłębie Dolnośląskie</b> – eksploatacja zaniechana ze względu na nieopłacalność wydobycia</li>
+    </ul>
+    <br>
+    Węgiel kamienny wykorzystywany jest w przemyśle energetycznym – w elektrowniach cieplnych (udział w produkcji energii elektrycznej przekracza 50%). Większość elektrowni opalanych węglem kamiennym znajduje się na południu Polski - w pobliżu kopalń. Największą elektrownią cieplną wykorzystującą węgiel kamienny jest ta znajdująca się w Kozienicach, posiadająca moc 3980 MW.
+    <br><br>
+    Wydobycie: <br>
+    W latach 80. XX wieku, Polska była jednym z głównych producentów węgla kamiennego. W 2016 roku wydobycie wyniosło około 70 mln ton, gdzie w 1980 było na poziomie 193 mln ton. Szacuje się, że w ziemi pozostaje około 58 mld ton (zasoby te powinny wystarczyć na około 45 lat), jednak ze względu na rosnące koszty wydobycie (złoża są coraz głębiej, niższa jakość surowca oraz problem pracownikami) eksploatowane będzie coraz mniej. Węgiel kamienny wydobywany jest w Polsce obecnie z 20 kopalni, z czego 90% całej eksploatacji prowadzone jest w Górnośląskim Zagłębiu Węglowym, a tylko 10% pochodzi z Bogdanki w Lubelskim Zagłębiu Węglowym. Większość należy do różnych przedsiębiorstw, takich jak: <br>
+    <ul>
+    <li>Jastrzębska Spółka Węglowa (4 kopalnie) </li>
+    <li>Polska Grupa Górnicza (8 kopalń, w tym KWK ROW - największa kopalnia w Polsce, z siedzibą w Rybniku) </li>
+    <li>Tauron Wydobycie (3 kopalnie) </li>
+    <li>Przedsiębiorstwo Górnicze Silesia (1 kopalnia) </li>
+    <li>Lubelski Węgiel Bogdanka S.A (1 kopania) </li>
+    <li>Węglokoks (1 kopalnia) </li>
+    <li>Zakład Górniczy Siltech Sp. z o.o. </li>
+    <li>Zakład Górniczy Eko- Plus Sp. z o.o. </li>
+    </ul>
+    <br>
+    Wydobycie węgla kamiennego z roku na rok jest coraz mniejsze, ale mimo zmniejszającego się zapotrzebowania do elektrowni cieplnych, krajowe zasoby są za małe aby pokryć wykorzystanie. To dlatego Polska od kilku lat zmuszona jest do współpracy handlowej z innymi krajami. Obecnie głównymi partnerami handlowymi Polski w eksporcie węgla kamiennego są: Niemcy, Czechy oraz Austria. Import tego surowca najczęściej pochodzi z Rosji, Australii lub Czech. 
+    <br><br>
+</div>
+<div class="descPage">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad reiciendis necessitatibus perferendis nobis inventore quam nostrum, excepturi praesentium saepe iusto mollitia delectus minus aspernatur animi aut tempora adipisci illum distinctio!
+    <br>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae amet iure, nam dolorem modi aut harum rerum molestias, eaque, ex nobis illum aperiam. Vitae, enim! Beatae expedita suscipit consequuntur ea! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta vel laudantium at nemo sapiente iusto assumenda voluptate eveniet nostrum, quae ducimus. Tempore rem quasi eius dolore exercitationem optio laborum explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos ab nobis maxime quibusdam aliquid odit numquam molestias iusto quaerat vitae atque, nam reiciendis. Quod earum in consectetur commodi, mollitia reiciendis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum facilis, voluptatem laudantium eos nesciunt illum perferendis placeat libero, excepturi consectetur, autem accusamus veniam? Alias adipisci maxime reprehenderit molestiae soluta odio. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex rerum optio et, magnam blanditiis aspernatur. Totam at voluptates quisquam, dolor voluptate temporibus maiores hic pariatur numquam. Molestias ea id animi? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis error mollitia aut hic ea omnis totam necessitatibus qui. Vero sapiente id nesciunt accusamus, deserunt vel beatae asperiores minima ullam quae.
+</div>
+{% endblock %}

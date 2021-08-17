@@ -1,0 +1,62 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Okręgi przemysłowe{% endblock %}
+{% block urlPREV %}{{ url_for('learn_limestone') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_water') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let pthide = document.getElementsByClassName('layerCat')[0];
+    let pthidehr = document.getElementsByClassName('layerCatHR')[0];
+    pthide.style.display = 'none';
+    pthidehr.style.display = 'none';
+    let l1 = '{{ dane[0] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+
+    let out1 = JSON.parse(l1);
+
+    let lp1 = L.featureGroup();
+    generatePolygons(out1, '#0957C3', lp1, 2);
+    
+    mapa.addLayer(lp1);
+    initiateStyle(lp1, "Okręgi", 1, 2);
+    let cp = document.getElementsByClassName('colorpicker')[0];
+    cp.style.display = 'none';
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Okręgi przemysłowe</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>WYBRANE OKRĘGI PRZEMYSŁOWE, W KTÓRYCH PROWADZONY JEST PRZEMYSŁ WYDOBYWCZY</h4>
+    <p>Okręgi przemysłowe to obszary, w&nbsp;których skoncentrowane są mniejsze ośrodki przemysłowe, składające się z&nbsp;różnych zakładów pełniących funkcje zaplecza społeczno-gospodarczego. Miejsca te skupiają przeważającą część Polskiego przemysłu, a&nbsp;zaczęły powstawać w&nbsp;drugiej połowie XIX wieku. Rozwój przemysłu spowodował również rozwój ośrodków, które powstawały w&nbsp;miejscach wybudowania nowych kopalń. W&nbsp;1980 roku na obszarze Polski funkcjonowało 24 ośrodki przemysłowe, które zajmowały łącznie 26% terytorium kraju i&nbsp;skupiały prawie 80% osób zatrudnionych w&nbsp;przemyśle. Późniejsze zmiany, w&nbsp;tym wprowadzenie gospodarki wolnorynkowej spowodowały, że w&nbsp;1999 roku wydzielonych było tylko 15 tego typu obszarów. Rozwój największych okręgów i&nbsp;kolejne zmiany (głównie technologiczne) sprawiły, że w&nbsp;2005 roku pozostało tylko 8 dużych i&nbsp;kilka mniejszych, z&nbsp;których większość opiera się na bazie surowcowej.</p>
+    <br>
+    <p>GÓRNOŚLĄSKI OKRĘG PRZEMYSŁOWY</p>
+    <p>Górnośląski okręg przemysłowy to największy okręg przemysłowy w&nbsp;Polsce. Zlokalizowany jest na Wyżynie Śląskiej i&nbsp;Kotlinie Oświęcimskiej, w&nbsp;jego obszarze znajduje się 14 większych miast m.in.: Katowice, Bytom, Chorzów, Gliwice czy Sosnowiec. Podstawą jest tam przemysł górniczy, hutniczy i&nbsp;energetyczny. W&nbsp;GOP-ie dobrze rozwinięty jest również przemysł chemiczny oraz motoryzacyjny. Znajdują się tam jedne z&nbsp;największych fabryk samochodów, tramwajów i&nbsp;pojazdów pancernych. Istotną rolę odgrywają również uczelnie wyższe zlokalizowane na tym obszarze, a&nbsp;jest ich ponad 50. Sprawia to, iż GOP jest jednym z&nbsp;największych na świecie ośrodkiem naukowym. </p>
+    <br>
+    <p>STAROPOLSKI OKRĘG PRZEMYSŁOWY </p>
+    <p>Staropolski Okręg Przemysłowy to najstarszy okręg przemysłowy w&nbsp;Polsce. Obszarem obejmuje część województwa świętokrzyskiego, mazowieckiego i&nbsp;łódzkiego, a&nbsp;główne ośrodki znajdują się w Kielcach, Starachowicach, Radomiu, Skarżysko-Kamiennej i&nbsp;Ostrowcu Świętokrzyskim. Początkowo dominowało tam hutnictwo i&nbsp;górnictwo metali jednak obecnie zlokalizowany jest tam przemysł metalowy związany z&nbsp;produkcją maszyn i&nbsp;pojazdów ciężarowych. Na jego terytorium znajduje się elektrownia cieplna "Kozienice".</p>
+    <br>
+    <p>GDAŃSKI OKRĘG PRZEMYSŁOWY</p>
+    <p>W skład Gdańskiego Okręgu Przemysłowego wchodzą takie miasta jak: Pruszcz Gdański, Wejherowo, Starogard Gdański oraz całe Trójmiasto. Ten zlokalizowany nad Bałtykiem okręg skupia większość polskiego przemysłu stoczniowego. Dobrze rozwinięte są również gałęzie przemysłu elektromaszynowego, spożywczego, energetycznego oraz rafineryjnego.</p>
+    <br>
+    <p>KRAKOWSKI OKRĘG PRZEMYSŁOWY</p>
+    <p>Krakowski Okręg Przemysłowy miał duże znaczenie w&nbsp;hutnictwie żelaza i&nbsp;stali. Obecnie dominuje tam przemysł transportowy, wydobywczy, maszynowy, chemiczny oraz energetyczny. Istotną rolę pełnią również przemysł szklarski, papierniczy, odzieżowy czy elektrotechniczny. Zlokalizowany jest w okolicach Krakowa, Bochni, Skawiny i&nbsp;Wieliczki.  </p>
+    <br>
+    <p>Dodatkowo przemysł wydobywczy jest istotny w mniejszych okręgach np.: </p>
+    <ul>
+    <li><b>Bydgosko-Toruński</b> – główne ośrodki to Bydgoszcz, Toruń oraz Inowrocław. Dominuje tam górnictwo i&nbsp;przetwórstwo soli kamiennej (Kujawy) oraz inne gałęzie przemysłu chemicznego i&nbsp;mineralnego. Dobrze rozwinięte są również przemysły elektromaszynowe i&nbsp;spożywcze.</li>
+    <li><b>Piotrkowsko-Bełchatowski</b> – zlokalizowany wokół Bełchatowa, Piotrkowa Trybunalskiego i&nbsp;Radomska. Dominuje tu przemysł wydobywczy węgla kamiennego i&nbsp;oparty na nim przemysł energetyczny. Istotna jest również produkcja elektromaszynowa (maszyny górnicze), mineralna i&nbsp;meblarska.</li>
+    <li><b>Płocki</b> - położony w&nbsp;okolicach Płocka i&nbsp;Gostynina, dominuje w nim przemysł rafineryjny i&nbsp;petrochemiczny (PKN Orlen). Jest to najmniejszy powierzchniowo okręg, w&nbsp;którym występuje również przemysł elektromaszynowy (maszyny rolnicze), odzieżowy i&nbsp;spożywczy.</li>
+    <li><b>Opolski</b> - głównymi ośrodkami są: Opole, Kędzierzyn Koźle, Nysa czy Kluczbork. Ma bardzo zróżnicowaną strukturę, można jednak wyróżnić przemysł metalurgiczny, mineralny, chemiczny i&nbsp;elektromaszynowy (części do samochodów).</li>
+    <li><b>Lubelski</b> - położony wokół Lublina, Świdnika i&nbsp;Bogdanki, dominuje w&nbsp;nim wydobycie węgla kamiennego, jednak istotne są również produkcje elektromaszyn (śmigłowców i&nbsp;części samolotowych), farmaceutyków oraz artykułów cukierniczych, spirytusowych i&nbsp;tytoniowych.</li>
+    </ul>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'>
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_rozsz_3/383_4_przemysl/r3_4_05a.pdf">www.geografia24.eu/geo_prezentacje_rozsz_3/383_4_przemysl/r3_4_05a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+{% endblock %}

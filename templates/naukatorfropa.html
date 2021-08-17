@@ -1,0 +1,94 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Torf i ropa naftowa{% endblock %}
+{% block urlPREV %}{{ url_for('learn_coal') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_gas') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    let l3 = '{{ dane[2] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    l3 = l3.substring(1, l3.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+    let out3 = JSON.parse(l3);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out1, pickaxemarkershort, pkt);
+    generatePoints(out3, pickaxemarkershort, pkt);
+
+
+    let lp1 = L.featureGroup();
+    generatePolygons(out2, '#4e355c', lp1);
+    mapa.addLayer(lp1);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Ropa naftowa", 1, 0, 0, 0, '#4e355c');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Torf</button>
+<button class="descButton">Ropa naftowa</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>TORF</h4>
+<p>Torf to <strong>słabo przeobrażony osad organiczny</strong>, który w &nbsp;woim składzie zawiera mniej niż 60% węgla pierwiastkowego. Pierwsze złoża torfu w&nbsp;Polsce powstały w&nbsp;wyniku gromadzenia się i&nbsp;torfienia szczątków pochodzenia roślinnego w&nbsp;wilgotnym środowisku i&nbsp;przy ograniczonym dostępie do tlenu. Cały proces trwa od kilku do kilkunastu lat, w&nbsp;samej Polsce pierwsze złoża tworzyły się już w&nbsp;czwartorzędzie, najmłodszym okresie ery kenozoicznej. Torfy dzielą się na różne rodzaje, a&nbsp;ich klasyfikacja zależna jest od warunków powstawania.</p>
+<img class='imageRaster' src="/static/img/text/torf.jpg" alt="torf">
+<p>Wyróżniamy następujące rodzaje torfów:</p>
+<ul>
+<li><strong>torfy niskie</strong> - powstają w&nbsp;dolinach rzek i&nbsp;jezior, mają ciemny kolor oraz są zbite i&nbsp;bogate w substancje organiczne;</li>
+<li><strong>torfy wysokie</strong> - głównie mchy i&nbsp;wrzosy, powstają w&nbsp;bezodpływowych zagłębieniach i&nbsp;na wododziałach, zasilane są tylko przez wody opadowe przez co charakteryzują się jaśniejszą barwą i&nbsp;mniejszą ilością substancji organicznych niż torfy niskie;</li>
+<li><strong>torfy przejściowe</strong> - posiadają cechy pośrednie między dwoma typami;</li>
+</ul>
+<p>WYSTĘPOWANIE:</p>
+<p>Torfowiska w Polsce skupione są głównie w&nbsp;północnej części kraju, w&nbsp;<strong>dolinach dużych rzek</strong>: Odry, Narwi, Biebrzy czy Noteci. Ze względów na znaczenie dla ekosystemu większość jest objęta ochroną.</p>
+<p>Z 50 tys. zinwentaryzowanych torfowisk w&nbsp;Polsce tylko 36% stanowi bazę do wydobycia. Eksploatacja torfu jest coraz mniejsza, bo o&nbsp;ile wysuszony i&nbsp;sprasowany stanowi doskonały opał, to na chwilę obecną nie służy na dużą skalę do celów energetycznych. Znacznie częściej wykorzystywany jest w rolnictwie, do produkcji tektury czy płyt pilśniowych, ale również jego lecznicza odmiana ma swoje zastosowanie w&nbsp;kąpielach i&nbsp;wytwarzaniu produktów leczniczych.</p>
+<hr class='bibHR'> 
+<h4 class="bibTitle">Źródło:</h4>
+<ul class='bibContent'> 
+    <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+    <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+    <li>Ilnicki P., Poznań 2002 <i>Torfowiska i torf</i>, AR</li>
+    <li><a href=https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12661-torf.html>www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12661-torf.html (dostęp: 31.05.2021 r.)</a></li>
+    <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf (dostęp: 31.05.2021 r.)</a></li>
+</ul>
+<br>
+</div>
+<div class="descPage">
+    <h4>ROPA NAFTOWA</h4>
+    <p>Ropa naftowa powstała z&nbsp;<strong>materii organicznej nagromadzonej w&nbsp;skałach osadowych</strong>, głównie z fito- oraz zooplanktonu. Środowiskiem idealnym do narodzin ropy naftowej były morza oraz oceany, a&nbsp;cały proces inauguracyjny był możliwy dzięki odpowiedniej temperaturze, ciśnieniu działalności bakterii oraz oddziaływaniu różnych pierwiastków promieniotwórczych.</p>
+    <p>Ropa naftowa jest wykorzystywana głównie do produkcji różnego rodzaju paliw. Czołowymi przedsiębiorstwami w&nbsp;przemyśle petrochemicznym w&nbsp;Polsce są "PKN Orlen" oraz "Lotos", które dostarczają paliwa do około 75% stacji. Używana jest również do wytwarzania farb, rozpuszczalników, ponadto do środków ochrony roślin czy leków.</p>
+    <p>Inicjatorem wydobycia ropy naftowej był Ignacy Łukasiewicz, który odkrył złoża w&nbsp;Bóbrce koło Krosna w 1854 roku, a&nbsp;w&nbsp;Ulaszowicach koło Jasła w&nbsp;1856 roku powstał pierwszy polski zakład destylacji. </p>
+    <img class="imageRaster" src="/static/img/text/ropa_naftowa.jpg" alt="ropa_naftowa">
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p> W Polsce występują niewielkie złoża ropy, a&nbsp;głównymi obszarami jej eksploatacji są:</p>
+    <ul>
+    <li><strong>Karpaty fliszowe</strong> – kolebka światowego przemysłu naftowego, złoża na wyczerpaniu;</li>
+    <li><strong>Zapadlisko Przedkarpackie</strong> – złoża na wyczerpaniu;</li>
+    <li><strong>Szelf Morza Bałtyckiego</strong> – złoża zasobne, duża część obecnego wydobycia ropy naftowej w Polsce;</li>
+    <li><strong>Niż Polski</strong> – złoża zasobne, duża część obecnego wydobycia ropy naftowej w&nbsp;Polsce;</li>
+    </ul>
+    <p>Dodatkowo niewielkie złoża występują również w&nbsp;północno-zachodniej części Polski oraz okolicach Lublina, jednak ich eksploatacja staje się coraz mniej opłacalna. Warto wspomnieć o&nbsp;zasobach <strong>ropy łupkowej</strong> (ropy, która nie przemieściła się do wyższych warstw ziemi, a&nbsp;pozostała w&nbsp;skałach łupkowych), która ma podobną strukturę co gaz łupkowy. Szacuje się, że jej złoża znajdują się na Pomorzu, wschodnim Mazowszu i&nbsp;wschodniej Lubelszczyźnie, jednak wydobycie jej może okazać się nieopłacalne ze względu na trudniejszą produkcję i&nbsp;mniejszą wydajność. </p>
+    <p>Udział ropy naftowej w&nbsp;produkcji energii elektrycznej w&nbsp;Polsce wynosi około 2%.</p>
+    <img class="imageVector" src="/static/img/text/ropanaftowa.svg" alt="ropa_naftowa">
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p>Wydobycie ropy oraz jej cena uwarunkowana oraz kontrolowana jest przez światową organizację <em>OPEC</em> (Organizacja Krajów Eksportujących Ropę Naftową), do której należą kraje o&nbsp;największym wydobyciu i&nbsp;eksporcie danego surowca.</p>
+    <p>Ropa naftowa w&nbsp;Polsce wydobywana jest z 87 złóż. 44 spośród wszystkich ulokowana jest na Niżu Polskim, z&nbsp;czego z&nbsp;okolic Gorzowa Wielkopolskiego pochodzi 70% ogólnego wydobycia ropy. Około 25% krajowej eksploatacji pochodzi z&nbsp;szelfu Morza Bałtyckiego w&nbsp;<strong>Polskiej Wyłącznej Strefie Ekonomicznej</strong>. Państwowa spółka "Petrobaltic", uzyskuje z&nbsp;morskich złóż około 240 tys. ton tego surowca rocznie. Dodatkowo 29 złóż znajduje się w&nbsp;Karpatach i&nbsp;Zapadlisku Przedkarpackim, jednak wynoszą one zaledwie 3% polskiej produkcji. W&nbsp;2016 roku w&nbsp;Polsce wydobyto 957,1 tys. ton ropy, co stanowiło około 0,01% światowej produkcji. Bardzo małe wydobycie, które pokrywa zaledwie 3% zapotrzebowania, powoduje konieczność importu ropy naftowej między innymi z&nbsp;Rosji (ponad 75% całego importu), Arabii Saudyjskiej i&nbsp;innych krajów Bliskiego Wschodu. Odbywa się on za pomocą<strong> tankowców oraz ropociągów</strong> np. "Przyjaźń" (Rosja - Białoruś - Polska - Niemcy).</p>
+    <hr class='bibHR'>
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li><a href=https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12578-ropa-naftowa-i-gaz-ziemny.html>www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12578-ropa-naftowa-i-gaz-ziemny.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Gaz ziemny{% endblock %}
+{% block urlPREV %}{{ url_for('learn_oil') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_ores') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out2, pickaxemarkershort, pkt);
+
+    let lp1 = L.featureGroup();
+    generatePolygons(out1, '#2f547a', lp1);
+
+    mapa.addLayer(lp1);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Gaz ziemny", 1, 0, 0, 0, '#2f547a');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Gaz ziemny</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>GAZ ZIEMNY</h4>
+<p>Gaz ziemny to rodzaj <strong>paliwa kopalnego o&nbsp;pochodzeniu organicznym</strong>. Składa się głównie z&nbsp;metanu (70-98%), etanu, propanu, tlenku i&nbsp;dwutlenku węgla, azotu i&nbsp;helu. Powstaje w&nbsp;skale macierzystej w&nbsp;postaci ciemnych łupków o&nbsp;dużej zawartości substancji organicznej. Następnie, w&nbsp;wyniku przechodzenia do stref o&nbsp;niższym ciśnieniu następowało rozdzielenie węglowodorów na ropę i&nbsp;gaz, które unosiły się nad ropą. Gaz unosił się do góry, w&nbsp;przypadku gdy napotykał skały nieprzepuszczalne, wówczas koncentrował się i&nbsp;w&nbsp;efekcie powstawały jego złoża.</p>
+<p>Bardzo ważne są również związki, które nie uniosły się do góry pozostając w&nbsp;skałach łupkowych i&nbsp;tworząc tym samym <strong>gaz łupkowy</strong>. Występowanie gazu ziemnego często pokrywa się z&nbsp;występowaniem ropy naftowej. Jest to przede wszystkim surowiec energetyczny, wykorzystywany do napędzania pojazdów oraz produkcji tworzyw syntetycznych. </p>
+<img class="imageRaster" src="/static/img/text/gaz_ziemny.jpg" alt="gaz_ziemny">
+<p><strong>WYSTĘPOWANIE:</strong></p>
+<p>Głównymi miejscami wydobycia są:</p>
+<ul>
+<li>Karpaty fliszowe</li>
+<li>Kotlina Sandomierska</li>
+<li>Nizina Wielkopolska</li>
+<li>Pojezierze Wielkopolskie</li>
+<li>Górnośląskie Zagłębie Węglowe</li>
+</ul>
+<p>Gaz ziemny stanowi około 6% produkcji energii elektrycznej w&nbsp;Polsce, a&nbsp;elektrownie gazowe w&nbsp;większości posiadają moc do 100 MW.</p>
+<img class="imageVector" src="/static/img/text/gazziemny.svg" alt="gazziemny">
+<p><strong>WYDOBYCIE:</strong></p>
+<p>Gaz ziemny wydobywany jest przede wszystkim na Podkarpaciu i&nbsp;Zapadlisku Podkarpackim. Dodatkowo wiele kopalni znajduje się w województwie Wielkopolskim oraz Lubuskim. Polskie wydobycie od kilku lat wynosi nieco ponad 5 mld m3, co pokrywa około 30-40% zapotrzebowania. Największą, bo posiadająca ponad 30 odwiertów kopalnią gazu jest "KG Kościan-Brońsko", a&nbsp;jej zdolność wydobywcza to około 150 tys. m3 gazu na godzinę. Bardzo duże zasoby gazu ziemnego oraz ropy naftowej wydobywa, ponad 7 mln ton "Kopalnia Ropy Naftowej i&nbsp;Gazu Ziemnego Lubiatów" należąca do PGNiG SA. Perspektywą zwiększenia wydobycia gazu są <strong>łupki</strong> występujące we wschodniej Polsce (szacuje się, że mogą to być największe złoża w&nbsp;Europie), jednak eksploatacja tych złóż może być nieopłacalna ze względu na trudne warunki geologiczne oraz niskie ceny surowca. </p>
+<p>Małe wydobycie i&nbsp;duże zapotrzebowanie sprawiają, że Polska importuje dany surowiec, głównie z&nbsp;Rosji, Stanów Zjednoczonych czy Kataru. Transport odbywa się przede wszystkim <strong>gazociągami</strong> np. "Jamał" (Rosja - Białoruś - Polska - Niemcy).</p>
+<hr class='bibHR'>
+<h4 class="bibTitle">Źródło:</h4>
+<ul class='bibContent'> 
+    <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+    <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+    <li><a href=https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12664-gaz-ziemny.html>www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12664-gaz-ziemny.html (dostęp: 31.05.2021 r.)</a></li>
+    <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    <li><a href="https://www.eia.gov/energyexplained/natural-gas/">www.eia.gov/energyexplained/natural-gas/ (dostęp: 31.05.2021 r.)</a></li>
+</ul>
+<br>
+</div>
+{% endblock %}

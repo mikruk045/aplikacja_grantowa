@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona główna</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylehome.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/homescript.js') }}" defer></script>
+
+</head>
+<body>
+    <div class="grid-container">
+
+        <div class="left">
+            <div class="contentLeft">
+            <div class="loga">
+                <img src="{{ url_for('static', filename='img/logoGEOIT2.svg') }}" class="logoGEOIT" alt="">
+                <img src="{{ url_for('static', filename='img/logo bez sloganu -RGB.svg') }}" class="logoFundacja" alt="">
+            </div>
+            <div class="text">
+                <div class="titleLeft">Naturalne bogactwa Polski</div>
+                <div class="textLeft">Przed Tobą znajduje się aplikacja web-GISowa, której zadaniem jest wspieranie nauki geografii na poziomie szkół ponadpodstawowych.
+ 
+                    Dzięki niej zdobędziesz wiedzę w zakresie rozlokowania surowców na terenie Polski czy ich wpływu na gospodarkę. <br><br>
+                    
+                    Stworzyliśmy ją z pasji, by ułatwić młodym miłośnikom wiedzy rozwój swoich umiejętności.<br>
+                    Wykorzystane w aplikacji dane przestrzenne pochodzą z<br>
+                    <div class="PIG"><a href="https://www.pgi.gov.pl/">Państwowego Instytutu Geologicznego</a></div>
+                    Rozpocznij poprzez wybranie jednego z trzech dostępnych trybów.
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="right" id="right">
+          <div class="paski">
+            <a href="{{ url_for('learn') }}" class="pasek1 mode">
+                <img src="/static/img/reading-book.svg" class="img" alt="">
+                <div class="modeContent">
+                    <div class="title">Nauka</div>
+                    <div class="desc">Rozpocznij naukę poszczególnych działów wybierając kategorię w kolejnym kroku.</div>
+                </div>
+                <button class="button"><img src="/static/img/arrowrightWHITE2.svg" alt=""></button>
+            </a>
+            <a href="{{ url_for('test') }}" class="pasek2 mode">
+                <img src="/static/img/approval.svg" class="img" alt="">
+                <div class="modeContent">
+                    <div class="title">Test</div>
+                    <div class="desc">Sprawdź wiedzę na temat nauczonych już działów surowców w teście ogólnym lub z danej kategorii.</div>
+                </div>
+                <button class="button"><img src="/static/img/arrowrightWHITE2.svg" alt=""></button>
+            </a>
+            <a href="{{ url_for('map') }}" class="pasek3 mode">
+                <img src="/static/img/sandbox.svg" class="img" alt="">
+                <div class="modeContent">
+                    <div class="title">Tryb swobodny</div>
+                    <div class="desc">Poczuj swobodę z możliwością wyświetlenia w jednym widoku mapy surowców z dowolnego działu.</div>
+                </div>
+                <button class="button"><img src="/static/img/arrowrightWHITE2.svg" alt=""></button>
+            </a>
+          </div>
+        </div>
+        <div class="footer">
+            <div class="footerLeft">
+
+            </div>
+            <div class="footerRight">
+                <a href="{{ url_for('contact') }}">Kontakt</a> 
+            </div>
+        </div>
+      </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+    <link rel="stylesheet" href="/static/css/stylecontact.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/stylelearning.css">
+    <script src="/static/js/contact.js" defer></script>
+</head>
+<body>
+    <div class="whiteMain">
+        <div class="goBack">
+            <a href="{{ url_for('index') }}" id="home" class="endButton">Strona główna</a>
+            <a href="#" class="anotherTest" id="previousPage">Powrót do ostatniej strony</a>
+        </div>
+        <div class="titleContact">Kontakt</div>
+        <div class="contactContainer">
+            <div class="leftright" style="grid-area: left;">
+                <div class="head">Z fundacją:</div>
+                <div class="media">
+                    <div class="mail">fundacja@annapasek.org</div>
+                    <div class="www mediaClick">www.annapasek.org</div>
+                    <div class="fb mediaClick"><b>/</b>fundacja.anny.pasek</div>
+                    <div class="tel">+ 48 32 761 53 80</div>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="leftright" style="grid-area: right;">
+                <div class="head">Z GeoIT UMCS:</div>
+                <div class="media">
+                    <div class="mail">geoit.umcs@gmail.com</div>
+                    <div class="fb mediaClick"><b>/</b>geoit.lublin</div>
+                    <div class="insta mediaClick"><b>@</b>geoit.umcs</div>
+                </div>
+            </div>
+        </div>
+        <div class="im">
+            <img src="/static/img/geoitifundacja.svg" height="40px" alt="" srcset="">
+        </div>
+        
+    </div>
+</body>
+</html>

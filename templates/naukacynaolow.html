@@ -1,0 +1,66 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Ruda cynku i ołowiu{% endblock %}
+{% block urlPREV %}{{ url_for('learn_ores') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_plaster') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    // let l2 = '{{ dane[1] | tojson }}';
+    let l3 = '{{ dane[2] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    // l2 = l2.substring(1, l2.length-1);
+    l3 = l3.substring(1, l3.length-1);
+    let out1 = JSON.parse(l1);
+    // let out2 = JSON.parse(l2);
+    let out3 = JSON.parse(l3);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out3, pickaxemarkershort, pkt);
+
+    let lp1 = L.featureGroup();
+    generatePolygons(out1, '#524922', lp1);
+
+    // let lp2 = L.featureGroup();
+    // generatePolygons(out2, '#224a52', lp2);
+
+    mapa.addLayer(lp1);
+    // mapa.addLayer(lp2);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Cynk i ołów", 1, 0, 0, 0, '#524922');
+    // initiateStyle(lp2, "Cyna", 1, 0, 0, 0, '#224a52');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Cynk i ołów</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>CYNK I OŁÓW</h4>
+    <p>Złoża cynku i&nbsp;ołowiu powstały w&nbsp;wyniku <strong>krystalizacji siarczków cynku i&nbsp;ołowiu ze średnio oraz niskotemperaturowych zmineralizowanych roztworów wodnych.</strong> Powstałe substancje zmieniały chemicznie istniejące minerały, w&nbsp;składzie skał, które ich otaczały. Najpierw wapienie ulegały dolomityzacji, a&nbsp;następnie wzbogacane były minerałami cynku i&nbsp;ołowiu. Ołów na większą skalę stał się popularny już w&nbsp;czasach starożytnych, za sprawą cesarstwa rzymskiego, gdzie wykorzystywany był do produkcji rur wodnych, ale także miał swoje zastosowanie w&nbsp;farmacji, dekarstwie, handlu czy sztuce wojennej. <strong>Znaczenie ołowiu spadło dopiero w&nbsp;momencie odkrycia jego szkodliwości,</strong> w&nbsp;tym wiele zatruć powodujących nawet śmierć. W&nbsp;średniowieczu wykorzystywano go w&nbsp;pociskach, ze względu na stosunkowo tanią produkcję i&nbsp;odpowiednie właściwości. Obecnie ołów ma szerokie zastosowanie na przykład jako balast w&nbsp;łodziach, osłona do kabli podwodnych, w&nbsp;produkcji akumulatorów, energetyce jądrowej jako chłodziwo do reaktora czy medycynie jako osłony przy prześwietleniach. Cynk z&nbsp;kolei dobrze zabezpiecza metal przed korozją.</p>
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>Surowce te występują w&nbsp;skałach okresu <strong>od dewonu do jury</strong>, w&nbsp;postaci pokładów i&nbsp;pseudo pokładów, poziomych soczew lub wypełnień gniazdowych. <strong>Mają postać rud, gdzie blisko powierzchni występują w&nbsp;postaci rud tlenowych, a&nbsp;głębiej - rud siarczkowych.</strong></p>
+    <p>Główne rejony występowania:</p>
+    <ul>
+    <li><strong>Wyżyna Śląska</strong></li>
+    <li><strong>Wyżyna Krakowsko-Częstochowska</strong></li>
+    <li><strong>Monoklina Przedsudecka</strong></li>
+    </ul>
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p><strong>Jedyną czynną kopalnią rud cynku i&nbsp;ołowiu jest Kopalnia Pomorzany (Olkusz-Pomorzany).</strong> Kraje, do których eksportowane są te surowce to głównie Niemcy, Czechy i&nbsp;Bułgaria, natomiast import pochodzi między innymi z&nbsp;Australii, Rumunii, Belgii lub Szwecji.</p>
+    <hr class='bibHR'>
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12710-cynk-i-olow.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12710-cynk-i-olow.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/metaliczne/rudy_zn-pb">www.geoportal.pgi.gov.pl/surowce/metaliczne/rudy_zn-pb (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+{% endblock %}

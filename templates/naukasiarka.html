@@ -1,0 +1,53 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Siarka{% endblock %}
+{% block urlPREV %}{{ url_for('learn_plaster') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_salt') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out2, pickaxemarkershort, pkt);
+
+    let lp1 = L.featureGroup();
+    generatePolygons(out1, '#A58105', lp1);
+
+    mapa.addLayer(lp1);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Siarka", 1, 0, 0, 0, '#A58105');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Siarka</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>SIARKA</h4>
+    <p>Siarka powstaje wskutek <strong>utleniania siarkowodoru lub redukcji siarczanów</strong> (głównie gipsu). Niewielkie ilości siarki powstają w wyniku ekshalacji wulkanicznych. Ten żółty surowiec powstał w&nbsp;<strong>trzeciorzędzie</strong>, a&nbsp;najczęściej występuje w&nbsp;postaci skał osadowych chemicznych. Siarka używana jest do produkcji między innym leków, nawozów sztucznych czy środków ochrony roślin. Dodatkowo w&nbsp;starych kopalniach znajdują się uzdrowiska z&nbsp;siarczkowymi wodami leczniczymi (jak w&nbsp;Swoszowicach).</p>
+    <img class="imageRaster" src="/static/img/text/siarka.jpg" alt="siarka">
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>Siarka występuje przede wszystkim na obszarze <strong>Zapadliska Przedkarpackiego</strong>, początkowo była ona jednak wydobywana między innymi na Górnym Śląsku, w&nbsp;okolicach Krakowa czy w&nbsp;województwie świętokrzyskim.</p>
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p><strong>U schyłku XX wieku Polska była jednym z&nbsp;liderów w wydobyciu siarki</strong>, a&nbsp;górnictwo stanowiło ważny element przemysłu. Sytuacja uległa zmianie gdy okazało się, iż bardziej opłacalne jest wydobycie siarki z&nbsp;odsiarczania ropy naftowej i&nbsp;gazu ziemnego. Wiele kopalni zostało zamkniętych, a&nbsp;wyrobiska przekształcone w&nbsp;zbiorniki rekreacyjne. <strong>Obecnie jedyną działającą kopalnią siarki w&nbsp;Polsce jest Kopalnia Siarki Osiek</strong> w&nbsp;województwie świętokrzyskim, która wydobywa niecałe 800 tys. ton surowca rocznie.</p>
+    <p>Polska siarka wysyłana jest między innymi do Maroka, Czech, Rumunii czy Rosji. Natomiast importowana pochodzi głównie z&nbsp;Niemiec, Francji, Hiszpanii oraz Węgier.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12583-siarka.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12583-siarka.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/chemiczne/siarka">www.geoportal.pgi.gov.pl/surowce/chemiczne/siarka (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+{% endblock %}

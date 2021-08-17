@@ -1,0 +1,102 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Glina i gips{% endblock %}
+{% block urlPREV %}{{ url_for('learn_tin') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_sulfur') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    let l3 = '{{ dane[2] | tojson }}';
+    let l4 = '{{ dane[3] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    l3 = l3.substring(1, l3.length-1);
+    l4 = l4.substring(1, l4.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+    let out3 = JSON.parse(l3);
+    let out4 = JSON.parse(l4);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out2, pickaxemarkershort, pkt);
+    generatePoints(out4, pickaxemarkershort, pkt);
+
+    let lp1 = L.featureGroup();
+    let lp2 = L.featureGroup();
+    generatePolygons(out1, '#9A503A', lp1);
+    generatePolygons(out3, '#77bc31', lp2);
+
+    mapa.addLayer(lp1);
+    mapa.addLayer(lp2);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Glina", 1, 0, 0, 0, '#9A503A');
+    initiateStyle(lp2, "Gips", 1, 0, 0, 0, '#77bc31');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Okruchowe</button>
+<button class="descButton">Ilaste</button>
+<button class="descButton">Budowlane</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>PIASKI I ŻWIRY</h4>
+    <p>Piaski i żwiry to<strong> skały osadowe</strong>, które występują na terenie niemal całej Polski. Oba surowce składają się z&nbsp;<strong>luźnych ziaren</strong>, a&nbsp;średnica ich to odpowiednio 0,1-2 mm dla piasku i&nbsp;powyżej 2 mm dla żwiru. Najczęściej są pochodzenia morskiego, rzecznego lub polodowcowego, a&nbsp;w&nbsp;ich skład wchodzą okruchy innych skał, które oddzieliły się w&nbsp;wyniku erozji. Zarówno piasek jak i&nbsp;żwir mają szerokie zastosowanie w&nbsp;przemyśle. Ten pierwszy wykorzystywany jest np. do wyrobu szkła i&nbsp;ceramiki, jako składnik betonu, zapraw murarskich czy tynków. Żwir natomiast wykorzystywany jest do budowy i&nbsp;podbudowy dróg, uchodzi za składnik betonu oraz jako wsad do mas bitumicznych.</p>
+    <img class="imageRaster" src="/static/img/text/zwir.jpg" alt="zwir">
+    <hr class='bibHR'>
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li><i>Encyklopedia Audiowizualna Britannica</i> 2006, Kurpisz</li>
+        <li>Łydka K., Warszawa 1985 <i>Petrologia skał osadowych</i>, Wydawnictwo Geologiczne</li>
+        <li>Manecki A., Muszyński M., Kraków 2008 <i>Przewodnik do petrografii</i>, Uczelniane Wydawnictwo Naukowo-Dydaktyczne AGH</li>
+        <li>Bolewski A., Parachoniak W., Warszawa 1982 <i>Petrografia</i>, Wydawnictwa Geologiczne</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12597-surowce-okruchowe-2.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12597-surowce-okruchowe-2.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>GLINA</h4>
+    <p>Glina to <strong>skała ilasta osadowa</strong>, powstała w&nbsp;wyniku nagromadzenia osadów morenowych, najczęściej naniesionych przez lądolód. Składa się głównie z&nbsp;minerałów ilastych, kwarcu, skaleni i&nbsp;substancji koloidalnych, a&nbsp;w&nbsp;zależności od ilości tych ostatnich może mieć różną barwę - od żółtej, czerwonej czy brunatnej po jasnoszarą, szarą czy szarozieloną. Glina stanowi podstawę przemysłu ceramicznego. Wytwarza się z&nbsp;niej nie tylko naczynia ale również płytki czy ceramikę sanitarną. Dodatkowo jest jednym z&nbsp;najbardziej rozpowszechnionych materiałów budowlanych na świecie, gdyż można ją wykorzystać niemal do wszystkiego - murowania, tynkowania, budowania pieców, a&nbsp;nawet konstruowania stropów, czy dachów. W&nbsp;Polsce najwięcej gliny nagromadzone jest w&nbsp;północno-wschodniej i&nbsp;zachodniej części kraju. </p>
+    <img class="imageRaster" src="/static/img/text/glina.jpg" alt="glina">
+    <br>
+    <br>
+    <hr class='bibHR'>
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Bolewski A., Parachoniak W., Warszawa 1982 <i>Petrografia</i>, Wydawnictwa Geologiczne</li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/skalne/gliny_ogniotrwale">www.geoportal.pgi.gov.pl/surowce/skalne/gliny_ogniotrwale (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/skalne/gliny_ceramiczne">www.geoportal.pgi.gov.pl/surowce/skalne/gliny_ceramiczne (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>BAZALTY, GRANITY, PIASKOWCE, GIPS I ANHYDRYT </h4>
+    <p><em>Bazalt</em> to <strong>zasadowa skała lita wylewna (wulkaniczna)</strong>, o&nbsp;skrytokrystalicznej strukturze i&nbsp;ciemnej barwie. Składa się głównie z&nbsp;mikroskopijnych kryształków skaleni, piroksenów, magnetytu i&nbsp;oliwinu. Bazalt jest głównie wykorzystywany do budowy dróg i&nbsp;nawierzchni, jako kostka brukowa czy surowiec do produkcji wełny mineralnej i&nbsp;trudnościeralnych mat. występuje w postaci <strong>pokryw lawowych</strong> głównie na Śląsku.</p>
+    <img src="/static/img/text/bazalt.jpg" alt="bazalt">
+    <p><em>Granit</em> to <strong>skała głębinowa</strong>, kwaśna o&nbsp;jawnokrystalicznej budowie. Składa się z&nbsp;kwarcu, skalenia i&nbsp;miki. Ze względu na łatwość cięcia, duże bloki, wytrzymałość i&nbsp;estetykę, często wykorzystywany jest w&nbsp;budownictwie lub do dekoracji. Jest także bardzo dobrym materiałem do tworzenia nagrobków i&nbsp;pomników. W Polsce występuje na Dolnym Śląsku, w&nbsp;Tatrach i&nbsp;ziemi kłodzkiej, a&nbsp;eksploatacja z&nbsp;77 udokumentowanych złóż prowadzona jest obecnie w&nbsp;36.</p>
+    <p><em>Piaskowiec</em> to <strong>skała osadowa</strong> zwięzła powstała w wyniku scementowania ziaren kwarcu spoiwem mineralnym. Bardzo często występuje w&nbsp;warstwach wodonośnych lub razem ze złożami ropy naftowej i&nbsp;gazu ziemnego. Jest wykorzystywany jako materiał rzeźbiarski, w&nbsp;budownictwie przykładowo do ogrodzeń czy ścian, a&nbsp;także jako kostka brukowa. Występuje między innymi w&nbsp;Górach Stołowych, Karpatach, na Kaszubach oraz w&nbsp;Małopolsce i&nbsp;Górach Świętokrzyskich. </p>
+    <p><em>Gips</em> to <strong>skała osadowa</strong>, chemiczna, która powstaje w&nbsp;wyniku parowania wód słonych - jezior lub mórz, a&nbsp;czasem w&nbsp;procesie uwodnienia anhydrytu. Najczęściej ma postać białą, szarą lub żółtą. W kontakcie z&nbsp;wodą gips szybko twardnieje dlatego jest dobrym materiałem budowlanym. Wykorzystywany jest do tynków wewnętrznych, gładzi, jako formy do odlewów czy do produkcji płyt kartonowo-gipsowych. Gips jako minerał ma zastosowanie także w&nbsp;jubilerstwie, stomatologii lub w&nbsp;modelarstwie oraz jako surowiec rzeźbiarski. W&nbsp;Polsce występuje między innymi w&nbsp;Ponidzie, okolicach Opoczna, Mszczonowa, w&nbsp;Sudetach i&nbsp;Dobrzyniu nad Wisłą. </p>
+    <p><em>Anhydryt</em> to <strong>skała osadowa</strong> zbudowana w&nbsp;większości z&nbsp;minerału o tej samej nazwie, a&nbsp;także z&nbsp;gipsu, kalcytu i&nbsp;halitu. Łatwo wchłania wodę i&nbsp;może zwiększyć swoją objętość nawet o&nbsp;60%. Nie jest jednak trwały, gdyż może pękać i&nbsp;ulegać rozwarstwieniu. Ma jasnoniebieską lub rzadziej białą czy kremową barwę. Anhydryt znalazł zastosowanie w&nbsp;budownictwie, jubilerstwie oraz przemyśle cementowym. Wykorzystywany jest też do wyrobu kwasu siarkowego lub jako wypełniacz w&nbsp;procesie produkcji papieru. W&nbsp;Polsce występuje w&nbsp;rejonach Inowrocławia, Lubania, Kłodawy czy Lwówka Śląskiego.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Bolewski A., Parachoniak W., Warszawa 1982 <i>Petrografia</i>, Wydawnictwa Geologiczne</li>
+        <li>Kurdowski W., Warszawa 1981 <i>Poradnik technologa przemysłu cementowego</i>, Arkady</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12595-surowce-drogowe-i-budowlane.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12595-surowce-drogowe-i-budowlane.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/skalne/gipsy_anhydryty">www.geoportal.pgi.gov.pl/surowce/skalne/gipsy_anhydryty (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+{% endblock %}

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tryb swobodny</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/js/Leaflet.markercluster-1.4.1/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <link rel="stylesheet" href="/static/js/Leaflet.Basemaps-main/L.Control.Basemaps.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reinvented-color-wheel@0.3.1/css/reinvented-color-wheel.min.css">
+    <link rel="stylesheet" href="/static/css/stylelearning.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/hosuaby/Leaflet.SmoothMarkerBouncing@v2.0.0/dist/bundle.js" crossorigin="anonymous"></script>
+    <script src="/static/js/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="/static/js/Leaflet.Basemaps-main/L.Control.Basemaps.js"></script>
+    <script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="bluebar"></div>
+        <div class="upperBar">
+            <div class="leftBar">
+                <div class="pageTitle">Naturalne bogactwa Polski</div>
+                <div class="verticalSep"></div>
+                <div class="subdomain">Tryb swobodny</div>
+                <div class="lessonsArea">
+                </div>
+            </div>
+            <div class="rightBar">
+                <div class="hamburgermenu"><img src="/static/img/hamburgermenu.svg" alt=""></div>
+                <div class="hamburgermenucontent">
+                    <a class="active" href="{{ url_for('index') }}">Strona główna</a>
+                    <hr class="menuline">
+                    <a href="#" class="kategorieHAM">Nauka</a>
+                    <div class="dropdown-contentHAM podkategorieHAM">
+                        <a href="#" class="kategorie hamkategorie">wody i solanki</a>
+                        <div class="podkategorie hamcat">
+                            <a href="{{ url_for('learn_water') }}">Wody, solanki</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="#" class="kategorie hamkategorie">surowce energetyczne</a>
+                        <div class="podkategorie hamcat active" style="display: block">
+                            <a href="{{ url_for('learn_coal') }}">Węgiel kamienny i brunatny</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_oil') }}">Torf i ropa naftowa</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_gas') }}">Gaz ziemny</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="#" class="kategorie hamkategorie">surowce metaliczne</a>
+                        <div class="podkategorie hamcat">
+                            <a href="{{ url_for('learn_ores') }}">Złoto, srebro, miedź i żelazo</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_tin') }}">Ruda cynku i ołowiu</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="#" class="kategorie hamkategorie">surowce skaliste</a>
+                        <div class="podkategorie hamcat">
+                            <a href="{{ url_for('learn_plaster') }}">Gliny, gips, anhydryt</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="#" class="kategorie hamkategorie">surowce chemiczne</a>
+                        <div class="podkategorie hamcat">
+                            <a href="{{ url_for('learn_sulfur') }}">Siarka</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_salt') }}">Sól kamienna i potasowa</a>
+                            <hr class="menuline" style="border-color: rgb(223, 223, 223);">
+                            <a href="{{ url_for('learn_limestone') }}">Wapienie i margle</a>
+                        </div>
+                        <hr class="menuline">
+                        <a href="{{ url_for('learn_industry') }}" class="kategorieWithout">okręgi przemysłowe</a>
+                        <hr class="menuline">
+                        <a href="{{ url_for('learn_oze') }}" class="kategorieWithout">OZE i środowisko</a>
+                    </div>
+                    <hr class="menuline">
+                    <a href="#" class="kategorieHAM">Test</a>
+                    <div class="dropdown-content2HAM podkategorieHAM">
+                            <a href="{{ url_for('test_wodysol') }}" class="kategorieTest">wody i solanki</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_ener') }}" class="kategorieTest">surowce energetyczne</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_met') }}" class="kategorieTest">surowce metaliczne</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_skal') }}" class="kategorieTest">surowce skaliste</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_chem') }}" class="kategorieTest">surowce chemiczne</a>
+                            <hr class="menuline">
+                            <a href="{{ url_for('test_end') }}" class="kategorieTest">test ogólny</a>
+                    </div>
+                    <hr class="menuline">
+                    <a href="{{ url_for('map') }}">Tryb swobodny</a>
+                    <hr class="menuline">
+                    <a href="{{ url_for('contact') }}">Kontakt</a>
+                </div>
+                <ul class="navMenu">
+                    <li><a class="active" href="{{ url_for('index') }}">Strona główna</a></li>
+                    <li class="nauka">
+                        <a href="{{ url_for('learn') }}">Nauka</a>
+                        <div class="dropdown-content">
+                            <a href="#" class="kategorie">wody i solanki</a>
+                            <div class="podkategorie">
+                                <a href="{{ url_for('learn_water') }}">Wody, solanki</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="#" class="kategorie">surowce energetyczne</a>
+                            <div class="podkategorie active" style="display: block">
+                                <a href="{{ url_for('learn_coal') }}">Węgiel kamienny i brunatny</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_oil') }}">Torf i ropa naftowa</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_gas') }}">Gaz ziemny</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="#" class="kategorie">surowce metaliczne</a>
+                            <div class="podkategorie">
+                                <a href="{{ url_for('learn_ores') }}">Złoto, srebro, miedź i żelazo</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_tin') }}">Ruda cynku i ołowiu</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="#" class="kategorie">surowce skaliste</a>
+                            <div class="podkategorie">
+                                <a href="{{ url_for('learn_plaster') }}">Gliny, gips, anhydryt</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="#" class="kategorie">surowce chemiczne</a>
+                            <div class="podkategorie">
+                                <a href="{{ url_for('learn_sulfur') }}">Siarka</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_salt') }}">Sól kamienna i potasowa</a>
+                                <hr class="menulinefull" style="border-color: rgb(218, 218, 218);">
+                                <a href="{{ url_for('learn_limestone') }}">Wapienie i margle</a>
+                            </div>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('learn_industry') }}" class="kategorieWithout">okręgi przemysłowe</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('learn_oze') }}" class="kategorieWithout">OZE i środowisko</a>
+                        </div>
+                    </li>
+                    <li class="testMode">
+                        <a href="{{ url_for('test') }}">Test</a>
+                        <div class="dropdown-content2">
+                            <a href="{{ url_for('test_wodysol') }}" class="kategorieTest">wody i solanki</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_ener') }}" class="kategorieTest">surowce energetyczne</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_met') }}" class="kategorieTest">surowce metaliczne</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_skal') }}" class="kategorieTest">surowce skaliste</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_chem') }}" class="kategorieTest">surowce chemiczne</a>
+                            <hr class="menulinefull">
+                            <a href="{{ url_for('test_end') }}" class="kategorieTest">test ogólny</a>
+                        </div>
+                    </li>
+                    <li><a href="{{ url_for('map') }}">Tryb swobodny</a></li>
+                    <li><a href="{{ url_for('contact') }}">Kontakt</a></li>
+                  </ul>
+                <img src="/static/img/geoitifundacja.svg" class="logos" alt="">
+            </div>
+        </div>
+        <div class="sideBar">
+            <div class="controlsarea">
+                <div class="controls">
+                    <div></div>
+                    <abbr title="Informacje o obiekcie">
+                    <button id="tableCTRL" class="learningButton activeButton">
+                        <img src="/static/img/icons/003-table.svg" alt="">
+                        <div>Informacje</div>
+                    </button>
+                    </abbr>
+                    <abbr title="Lista warstw">
+                    <button id="styleCTRL" class="learningButton" style="display: none;">
+                        <img src="/static/img/icons/004-paintbrush.svg" alt="" >
+                    </button>
+                </abbr>
+                    <abbr title="Wyrównaj do zasięgu Polski">
+                    <button id="zoompolandCTRL" class="learningButton">
+                        <img src="/static/img/icons/002-maximize.svg" alt="">
+                    </button>
+                </abbr>
+                <abbr title="Przybliż do zaznaczonej warstwy">
+                    <button id="zoomlayerCTRL" class="learningButton" disabled>
+                        <img src="/static/img/icons/001-zoom.svg" alt="">
+                    </button>
+                </abbr>
+                <abbr title="Odznacz">
+                    <button id="unselectCTRL" class="learningButton" disabled>
+                        <img src="/static/img/icons/005-close.svg" alt="">
+                    </button>
+                </abbr>
+                </div>
+                <div class="contentSidebar">
+                    <div id="contentTable">
+                        <div id="infoBegin">
+                            <img src="/static/img/icons/001-information.svg" class="infoiconMobile" alt="">
+                            Kliknij na wybrany obiekt na mapie, aby wyświetlić w tym miejscu informacje o nim
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="descContent">
+                <div class="descNav">
+                    <div class="descButtons"></div>
+                    <button class="expand" id="expand"><img id="expandimg" src="/static/img/icons/arrowblackUP.svg" alt=""></button>
+                </div>
+                <div class="descText">
+                    <div id="contentStyle" style="display: none;">
+                        <div class="layerCat">Warstwy punktowe</div>
+                        <hr class="layerCatHR">
+                        <div id="points">
+                        </div>
+                        <div class="layerCat">Warstwy powierzchniowe</div>
+                        <hr class="layerCatHR">
+                        <div id="polygons"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="changemodeMobile">
+                <button class="infoMode activeMode" disabled id="infoMode">Informacje</button>
+                <button class="descMode" id="descMode">Lista warstw</button>
+            </div>
+
+        </div>
+        <div id="map"></div>
+      </div>
+      <script src="/static/js/learning.js"></script>
+      <script>
+          contentStyle.style.display = 'Initial';
+          let markers = undefined;
+
+        // PUNKTY
+        let k_wap_marg = '{{ dane[3][1] | tojson }}';
+        k_wap_marg = k_wap_marg.substring(1, k_wap_marg.length-1);
+        k_wap_marg = JSON.parse(k_wap_marg);
+        let k_wap_marg_pkt = L.layerGroup();
+        let k_wap_marg_ico = L.divIcon({className: 'icona k_wap_marg_ico'});
+        generatePoints(k_wap_marg, k_wap_marg_ico, 0, k_wap_marg_pkt);
+        mapa.addLayer(k_wap_marg_pkt);
+        initiateStyle(k_wap_marg_pkt, "Kop. wapieni, margli", 0, 0, 1, 0);
+
+        let k_s_kam = '{{ dane[4][1] | tojson }}';
+        k_s_kam = k_s_kam.substring(1, k_s_kam.length-1);
+        k_s_kam = JSON.parse(k_s_kam);
+        let k_s_kam_pkt = L.layerGroup();
+        let k_s_kam_ico = L.divIcon({className: 'icona k_s_kam_ico'});
+        generatePoints(k_s_kam, k_s_kam_ico, 0, k_s_kam_pkt);
+        mapa.addLayer(k_s_kam_pkt);
+        initiateStyle(k_s_kam_pkt, "Kop. soli kam.", 0, 0, 1, 0);
+
+        let k_s_pot = '{{ dane[4][3] | tojson }}';
+        k_s_pot = k_s_pot.substring(1, k_s_pot.length-1);
+        k_s_pot = JSON.parse(k_s_pot);
+        let k_s_pot_pkt = L.layerGroup();
+        let k_s_pot_ico = L.divIcon({className: 'icona k_s_pot_ico'});
+        generatePoints(k_s_pot, k_s_pot_ico, 0, k_s_pot_pkt);
+        mapa.addLayer(k_s_pot_pkt);
+        initiateStyle(k_s_pot_pkt, "Kop. soli pot.", 0, 0, 1, 0);
+
+        let k_siarka = '{{ dane[5][1] | tojson }}';
+        k_siarka = k_siarka.substring(1, k_siarka.length-1);
+        k_siarka = JSON.parse(k_siarka);
+        let k_siarka_pkt = L.layerGroup();
+        let k_siarka_ico = L.divIcon({className: 'icona k_siarka_ico'});
+        generatePoints(k_siarka, k_siarka_ico, 0, k_siarka_pkt);
+        mapa.addLayer(k_siarka_pkt);
+        initiateStyle(k_siarka_pkt, "Kop. siarki", 0, 0, 1, 0);
+
+
+        let k_glina = '{{ dane[2][1] | tojson }}';
+        k_glina = k_glina.substring(1, k_glina.length-1);
+        k_glina = JSON.parse(k_glina);
+        let k_glina_pkt = L.layerGroup();
+        let k_glina_ico = L.divIcon({className: 'icona k_glina_ico'});
+        generatePoints(k_glina, k_glina_ico, 0, k_glina_pkt);
+        mapa.addLayer(k_glina_pkt);
+        initiateStyle(k_glina_pkt, "Kop. gliny", 0, 0, 1, 'hidden');
+
+        let k_gips = '{{ dane[2][3] | tojson }}';
+        k_gips = k_gips.substring(1, k_gips.length-1);
+        k_gips = JSON.parse(k_gips);
+        let k_gips_pkt = L.layerGroup();
+        let k_gips_ico = L.divIcon({className: 'icona k_gips_ico'});
+        generatePoints(k_gips, k_gips_ico, 0, k_gips_pkt);
+        mapa.addLayer(k_gips_pkt);
+        initiateStyle(k_gips_pkt, "Kop. gipsu", 0, 0, 1, 'hidden');
+
+
+        let k_cyna = '{{ dane[6][2] | tojson }}';
+        k_cyna = k_cyna.substring(1, k_cyna.length-1);
+        k_cyna = JSON.parse(k_cyna);
+        let k_cyna_pkt = L.layerGroup();
+        let k_cyna_ico = L.divIcon({className: 'icona k_cyna_ico'});
+        generatePoints(k_cyna, k_cyna_ico, 0, k_cyna_pkt);
+        mapa.addLayer(k_cyna_pkt);
+        initiateStyle(k_cyna_pkt, "Kop. cynku i ołowiu", 0, 0, 1, 'hidden');
+
+        let k_copper = '{{ dane[7][3] | tojson }}';
+        k_copper = k_copper.substring(1, k_copper.length-1);
+        k_copper = JSON.parse(k_copper);
+        let k_copper_pkt = L.layerGroup();
+        let k_copper_ico = L.divIcon({className: 'icona k_copper_ico'});
+        generatePoints(k_copper, k_copper_ico, 0, k_copper_pkt);
+        mapa.addLayer(k_copper_pkt);
+        initiateStyle(k_copper_pkt, "Kop. miedzi", 0, 0, 1, 'hidden');
+
+        let k_gold = '{{ dane[7][5] | tojson }}';
+        k_gold = k_gold.substring(1, k_gold.length-1);
+        k_gold = JSON.parse(k_gold);
+        let k_gold_pkt = L.layerGroup();
+        let k_gold_ico = L.divIcon({className: 'icona k_gold_ico'});
+        generatePoints(k_gold, k_gold_ico, 0, k_gold_pkt);
+        mapa.addLayer(k_gold_pkt);
+        initiateStyle(k_gold_pkt, "Kop. złota", 0, 0, 1, 'hidden');
+
+        let k_gaz = '{{ dane[8][1] | tojson }}';
+        k_gaz = k_gaz.substring(1, k_gaz.length-1);
+        k_gaz = JSON.parse(k_gaz);
+        let k_gaz_pkt = L.layerGroup();
+        let k_gaz_ico = L.divIcon({className: 'icona k_gaz_ico'});
+        generatePoints(k_gaz, k_gaz_ico, 0, k_gaz_pkt);
+        mapa.addLayer(k_gaz_pkt);
+        initiateStyle(k_gaz_pkt, "Kop. gazu", 0, 0, 1, 'hidden');
+
+        let k_torf = '{{ dane[9][0] | tojson }}';
+        k_torf = k_torf.substring(1, k_torf.length-1);
+        k_torf = JSON.parse(k_torf);
+        let k_torf_pkt = L.layerGroup();
+        let k_torf_ico = L.divIcon({className: 'icona k_torf_ico'});
+        generatePoints(k_torf, k_torf_ico, 0, k_torf_pkt);
+        mapa.addLayer(k_torf_pkt);
+        initiateStyle(k_torf_pkt, "Kop. torfu", 0, 0, 1, 'hidden');
+
+        let k_ropa = '{{ dane[9][2] | tojson }}';
+        k_ropa = k_ropa.substring(1, k_ropa.length-1);
+        k_ropa = JSON.parse(k_ropa);
+        let k_ropa_pkt = L.layerGroup();
+        let k_ropa_ico = L.divIcon({className: 'icona k_ropa_ico'});
+        generatePoints(k_ropa, k_ropa_ico, 0, k_ropa_pkt);
+        mapa.addLayer(k_ropa_pkt);
+        initiateStyle(k_ropa_pkt, "Kop. ropy", 0, 0, 1, 'hidden');
+
+        let k_kamienny = '{{ dane[10][1] | tojson }}';
+        k_kamienny = k_kamienny.substring(1, k_kamienny.length-1);
+        k_kamienny = JSON.parse(k_kamienny);
+        let k_kamienny_pkt = L.layerGroup();
+        let k_kamienny_ico = L.divIcon({className: 'icona k_kamienny_ico'});
+        generatePoints(k_kamienny, k_kamienny_ico, 0, k_kamienny_pkt);
+        mapa.addLayer(k_kamienny_pkt);
+        initiateStyle(k_kamienny_pkt, "Kop. w. kamiennego", 0, 0, 1, 'hidden');
+
+        let k_brunatny = '{{ dane[10][3] | tojson }}';
+        k_brunatny = k_brunatny.substring(1, k_brunatny.length-1);
+        k_brunatny = JSON.parse(k_brunatny);
+        let k_brunatny_pkt = L.layerGroup();
+        let k_brunatny_ico = L.divIcon({className: 'icona k_brunatny_ico'});
+        generatePoints(k_brunatny, k_brunatny_ico, 0, k_brunatny_pkt);
+        mapa.addLayer(k_brunatny_pkt);
+        initiateStyle(k_brunatny_pkt, "Kop. w. brunatnego", 0, 0, 1, 'hidden');
+
+        let wody_l = '{{ dane[0][0] | tojson }}';
+        wody_l = wody_l.substring(1, wody_l.length-1);
+        wody_l = JSON.parse(wody_l);
+        let wody_l_pkt = L.layerGroup();
+        let wody_l_ico = L.divIcon({className: 'icona wody_l_ico'});
+        generatePoints(wody_l, wody_l_ico, 1, wody_l_pkt);
+        mapa.addLayer(wody_l_pkt);
+        initiateStyle(wody_l_pkt, "Wody lecznicze", 0, 1, 1, 'hidden');
+
+        let wody_t = '{{ dane[0][1] | tojson }}';
+        wody_t = wody_t.substring(1, wody_t.length-1);
+        wody_t = JSON.parse(wody_t);
+        let wody_t_pkt = L.layerGroup();
+        let wody_t_ico = L.divIcon({className: 'icona wody_t_ico'});
+        generatePoints(wody_t, wody_t_ico, 1, wody_t_pkt);
+        mapa.addLayer(wody_t_pkt);
+        initiateStyle(wody_t_pkt, "Wody termalne", 0, 1, 1, 'hidden');
+
+
+        // POLIGONY
+        let wap_marg = '{{ dane[3][0] | tojson }}';
+        wap_marg = wap_marg.substring(1, wap_marg.length-1);
+        wap_marg = JSON.parse(wap_marg);
+        let wap_marg_poly = L.featureGroup();
+        generatePolygons(wap_marg, '#a03490', wap_marg_poly);
+        mapa.addLayer(wap_marg_poly);
+        initiateStyle(wap_marg_poly, "Wapienie, margle", 1, 0, 0, 0, '#a03490');
+
+        let s_kam = '{{ dane[4][0] | tojson }}';
+        s_kam = s_kam.substring(1, s_kam.length-1);
+        s_kam = JSON.parse(s_kam);
+        let s_kam_poly = L.featureGroup();
+        generatePolygons(s_kam, '#4f4e4e', s_kam_poly);
+        mapa.addLayer(s_kam_poly);
+        initiateStyle(s_kam_poly, "Sól kamienna", 1, 0, 0, 0, '#4f4e4e');
+
+        let s_pot = '{{ dane[4][2] | tojson }}';
+        s_pot = s_pot.substring(1, s_pot.length-1);
+        s_pot = JSON.parse(s_pot);
+        let s_pot_poly = L.featureGroup();
+        generatePolygons(s_pot, '#c93c3c', s_pot_poly);
+        mapa.addLayer(s_pot_poly);
+        initiateStyle(s_pot_poly, "Sól potasowa", 1, 0, 0, 0, '#c93c3c');
+
+        let siarka = '{{ dane[5][0] | tojson }}';
+        siarka = siarka.substring(1, siarka.length-1);
+        siarka = JSON.parse(siarka);
+        let siarka_poly = L.featureGroup();
+        generatePolygons(siarka, '#A58105', siarka_poly);
+        mapa.addLayer(siarka_poly);
+        initiateStyle(siarka_poly, "Siarka", 1, 0, 0, 0, '#A58105');
+
+        let solanki = '{{ dane[0][2] | tojson }}';
+        solanki = solanki.substring(1, solanki.length-1);
+        solanki = JSON.parse(solanki);
+        let solanki_poly = L.featureGroup();
+        generatePolygons(solanki, '#5A9A45', solanki_poly);
+        mapa.addLayer(solanki_poly);
+        initiateStyle(solanki_poly, "Solanki", 1, 0, 0, 'hidden', '#5A9A45');
+
+        let glina = '{{ dane[2][0] | tojson }}';
+        glina = glina.substring(1, glina.length-1);
+        glina = JSON.parse(glina);
+        let glina_poly = L.featureGroup();
+        generatePolygons(glina, '#9A503A', glina_poly);
+        mapa.addLayer(glina_poly);
+        initiateStyle(glina_poly, "Glina", 1, 0, 0, 'hidden', '#9A503A');
+
+        let gips = '{{ dane[2][2] | tojson }}';
+        gips = gips.substring(1, gips.length-1);
+        gips = JSON.parse(gips);
+        let gips_poly = L.featureGroup();
+        generatePolygons(gips, '#77bc31', gips_poly);
+        mapa.addLayer(gips_poly);
+        initiateStyle(gips_poly, "Gips", 1, 0, 0, 'hidden', '#77bc31');
+
+
+        // let cyna = '{{ dane[6][1] | tojson }}';
+        // cyna = cyna.substring(1, cyna.length-1);
+        // cyna = JSON.parse(cyna);
+        // let cyna_poly = L.featureGroup();
+        // generatePolygons(cyna, '#224a52', cyna_poly);
+        // mapa.addLayer(cyna_poly);
+        // initiateStyle(cyna_poly, "Cyna", 1, 0, 0, 'hidden', '#224a52');
+
+        let cynk = '{{ dane[6][0] | tojson }}';
+        cynk = cynk.substring(1, cynk.length-1);
+        cynk = JSON.parse(cynk);
+        let cynk_poly = L.featureGroup();
+        generatePolygons(cynk, '#524922', cynk_poly);
+        mapa.addLayer(cynk_poly);
+        initiateStyle(cynk_poly, "Cynk i ołów", 1, 0, 0, 'hidden', '#524922');
+
+        let iron = '{{ dane[7][0] | tojson }}';
+        iron = iron.substring(1, iron.length-1);
+        iron = JSON.parse(iron);
+        let iron_poly = L.featureGroup();
+        generatePolygons(iron, '#00332b', iron_poly);
+        mapa.addLayer(iron_poly);
+        initiateStyle(iron_poly, "Żelazo", 1, 0, 0, 'hidden', '#00332b');
+
+        let silver = '{{ dane[7][1] | tojson }}';
+        silver = silver.substring(1, silver.length-1);
+        silver = JSON.parse(silver);
+        let silver_poly = L.featureGroup();
+        generatePolygons(silver, '#424242', silver_poly);
+        mapa.addLayer(silver_poly);
+        initiateStyle(silver_poly, "Srebro", 1, 0, 0, 'hidden', '#424242');
+
+        let copper = '{{ dane[7][2] | tojson }}';
+        copper = copper.substring(1, copper.length-1);
+        copper = JSON.parse(copper);
+        let copper_poly = L.featureGroup();
+        generatePolygons(copper, '#85221d', copper_poly);
+        mapa.addLayer(copper_poly);
+        initiateStyle(copper_poly, "Miedź", 1, 0, 0, 'hidden', '#85221d');
+
+        let gold = '{{ dane[7][4] | tojson }}';
+        gold = gold.substring(1, gold.length-1);
+        gold = JSON.parse(gold);
+        let gold_poly = L.featureGroup();
+        generatePolygons(gold, '#7D6400', gold_poly);
+        mapa.addLayer(gold_poly);
+        initiateStyle(gold_poly, "Złoto", 1, 0, 0, 'hidden', '#7D6400');
+
+        let gaz = '{{ dane[8][0] | tojson }}';
+        gaz = gaz.substring(1, gaz.length-1);
+        gaz = JSON.parse(gaz);
+        let gaz_poly = L.featureGroup();
+        generatePolygons(gaz, '#2f547a', gaz_poly);
+        mapa.addLayer(gaz_poly);
+        initiateStyle(gaz_poly, "Gaz", 1, 0, 0, 'hidden', '#2f547a');
+
+        let ropa = '{{ dane[9][1] | tojson }}';
+        ropa = ropa.substring(1, ropa.length-1);
+        ropa = JSON.parse(ropa);
+        let ropa_poly = L.featureGroup();
+        generatePolygons(ropa, '#4e355c', ropa_poly);
+        mapa.addLayer(ropa_poly);
+        initiateStyle(ropa_poly, "Ropa", 1, 0, 0, 'hidden', '#4e355c');
+
+        let w_kamienny = '{{ dane[10][0] | tojson }}';
+        w_kamienny = w_kamienny.substring(1, w_kamienny.length-1);
+        w_kamienny = JSON.parse(w_kamienny);
+        let w_kamienny_poly = L.featureGroup();
+        generatePolygons(w_kamienny, '#202020', w_kamienny_poly);
+        mapa.addLayer(w_kamienny_poly);
+        initiateStyle(w_kamienny_poly, "Węgiel kamienny", 1, 0, 0, 'hidden', '#202020');
+
+        let w_brunatny = '{{ dane[10][2] | tojson }}';
+        w_brunatny = w_brunatny.substring(1, w_brunatny.length-1);
+        w_brunatny = JSON.parse(w_brunatny);
+        let w_brunatny_poly = L.featureGroup();
+        generatePolygons(w_brunatny, '#e26d5c', w_brunatny_poly);
+        mapa.addLayer(w_brunatny_poly);
+        initiateStyle(w_brunatny_poly, "Węgiel brunatny", 1, 0, 0, 'hidden', '#e26d5c');
+
+        let ok_prze = '{{ dane[1][0] | tojson }}';
+        ok_prze = ok_prze.substring(1, ok_prze.length-1);
+        ok_prze = JSON.parse(ok_prze);
+        let ok_prze_poly = L.featureGroup();
+        generatePolygons(ok_prze, '#0957C3', ok_prze_poly);
+        mapa.addLayer(ok_prze_poly);
+        initiateStyle(ok_prze_poly, "Okręgi przem.", 1, 0, 0, 'hidden', '#0957C3');
+        
+
+</script>
+</body>
+</html>

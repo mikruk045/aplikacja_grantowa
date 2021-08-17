@@ -1,0 +1,54 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Wapienie i margle{% endblock %}
+{% block urlPREV %}{{ url_for('learn_salt') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_industry') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out2, pickaxemarkershort, pkt);
+
+    let lp1 = L.featureGroup();
+    generatePolygons(out1, '#a03490', lp1);
+
+    mapa.addLayer(lp1);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Wapienie, margle", 1, 0,0,0, '#a03490');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Surowce węglanowe</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>WAPIENIE, MARGLE, DOLOMITY I KREDA</h4>
+    <p>Skały węglanowe to <strong>skały osadowe</strong>, które składają się głównie z&nbsp;<strong>węglanów</strong>, czyli kalcytu i&nbsp;dolomitu. Powstały w&nbsp;wyniku twardnienia osadów wapiennych, w&nbsp;różnych okresach geologicznych i&nbsp;warunkach. </p>
+    <p><em>Wapienie</em> w&nbsp;zależności od pochodzenia, mogą zawierać szczątki organiczne lub okruchy innych skał. Gdy zawartość minerałów ilastych jest w&nbsp;nich większa to określane są jako <strong>margle</strong>. Mają szerokie zastosowanie w&nbsp;przemyśle cementowym i&nbsp;wapienniczym. Produkuje się z&nbsp;nich m.in. nawozy, zaprawy murarskie, betony, ale wykorzystywane są także w&nbsp;przemyśle szklarskim oraz spożywczym. Złoża wapieni zlokalizowane są głównie w&nbsp;południowej i&nbsp;centralnej Polsce, w&nbsp;rejonach: opolskim, krakowsko-częstochowskim, świętokrzyskim i&nbsp;lubelskim. </p>
+    <img class="imageRaster" src="/static/img/text/wapien.jpg" alt="wapien">
+    <p><em>Dolomity</em> powstają w&nbsp;wyniku procesu dolomityzacji, często kosztem wapieni. Budową skała to przypomina wapień, jednak jest odporniejsza na wietrzenie, gdyż dolomit jest mniej rozpuszczalny niż kalcyt. Surowiec ten wykorzystywany jest między innymi jako topnik w&nbsp;hutnictwie, w&nbsp;przemyśle gumowym, ale również do produkcji tworzyw sztucznych, chemii budowlanej (farb, klejów czy lakierów) czy w przemyśle papierniczym. Dzięki swoim właściwościom odkwaszania gleb stosuje się go również do produkcji nawozów mineralnych. Występuje głównie na Śląsku, jednak z&nbsp;11 udokumentowanych złóż, wydobywany jest obecnie tylko z&nbsp;4.</p>
+    <p><em>Kreda</em> to miękka i&nbsp;porowata <strong>skała wapienna</strong>, która dzieli się na dwa typy z&nbsp;uwagi na pochodzenie. <strong>Kreda jeziorna</strong> powstała w wyniku wytrącenia się osadu węglowego na dnie jezior, a&nbsp;także <strong>kreda pisząca</strong>, która jest morskim osadem skorupek mikroorganizmów: kokolitów i&nbsp;otwornic. Wykorzystywana jest w rolnictwie do odkwaszania gleb lub jako dodatek do pasz, ale ma szerokie zastosowanie również w&nbsp;przemyśle chemicznym, farmaceutycznym czy cementowym. Często używana jest do produkcji farb lakierów, tworzyw sztucznych, a&nbsp;w&nbsp;połączeniu z&nbsp;gipsem służy do pisania na tablicach. Występuje głównie w&nbsp;północnej i&nbsp;północno-zachodniej części Polski, ale także w&nbsp;rejonie Bełchatowa czy Lubelszczyzny.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Wojnowski J. (red.), Warszawa 2004 <i>Wielka Encyklopedia PWN</i>, Naukowe PWN</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12721-surowce-weglanowe.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12721-surowce-weglanowe.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/skalne/wapienie_margle">www.geoportal.pgi.gov.pl/surowce/skalne/wapienie_margle (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/skalne/dolomity">www.geoportal.pgi.gov.pl/surowce/skalne/dolomity (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/skalne/kreda">www.geoportal.pgi.gov.pl/surowce/skalne/kreda (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+{% endblock %}

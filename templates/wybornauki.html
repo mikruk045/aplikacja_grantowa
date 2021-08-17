@@ -1,0 +1,70 @@
+{% extends "basetextchoice.html" %}
+{% block subdomain %}Wybór nauki{% endblock %}
+{% block pageContent %}
+        <div class="contentPage">
+            <div class="header">
+                <div class="headerContent">
+                    <div class="headerTitle">Wybór działu nauki</div>
+                    <div class="headerDescription">Wybierz dowolny dział nauki poniżej lub natychmiast rozpocznij naukę<br> od pierwszego działu - węgiel kamienny i brunatny.</div>
+                    <a href="{{ url_for('learn_coal') }}" class="startNow">Szybkie rozpoczęcie</a>
+                </div>
+            </div>
+            <div class="tiles">
+                <div class="tilesContent">
+                    <div class="oneTile" style="border-top: 10px solid #99582a;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/brown-coal-4294657_1920.jpg');"></div>
+                        <div class="tileTitle">Surowce energetyczne</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('learn_coal') }}" class="listElem">Węgiel kamienny i brunatny</a>
+                            <a href="{{ url_for('learn_oil') }}" class="listElem">Torf i ropa naftowa</a>
+                            <a href="{{ url_for('learn_gas') }}" class="listElem">Gaz ziemny</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #ff595e;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/pexels-pixabay-56030.jpg');"></div>
+                        <div class="tileTitle">Surowce metaliczne</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('learn_ores') }}" class="listElem">Złoto, srebro, miedź i żelazo</a>
+                            <a href="{{ url_for('learn_tin') }}" class="listElem">Ruda cynku i ołowiu</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #ffca3a;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/etna-3749522_1920.jpg');"></div>
+                        <div class="tileTitle">Surowce chemiczne</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('learn_sulfur') }}" class="listElem">Siarka</a>
+                            <a href="{{ url_for('learn_salt') }}" class="listElem">Sól kamienna i potasowa</a>
+                            <a href="{{ url_for('learn_limestone') }}" class="listElem">Wapienie i margle</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #8ac926;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/skala.jpg');"></div>
+                        <div class="tileTitle">Surowce skalne</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('learn_plaster') }}" class="listElem">Gliny, gips, anhydryt</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #1982c4;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/volcano-1807514_1920.jpg');"></div>
+                        <div class="tileTitle">Wody i solanki</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('learn_water') }}" class="listElem">Wody, solanki</a>
+                        </div>
+                    </div>
+                    <div class="oneTile" style="border-top: 10px solid #B4B4B4;">
+                        <div class="up" style="background-image: url('/static/img/imgcategories/wiatrowa.jpg');"></div>
+                        <div class="tileTitle">Pozostałe</div>
+                        <div class="buttonList">
+                            <a href="{{ url_for('learn_industry') }}" class="listElem">Okręgi przemysłowe</a>
+                            <a href="{{ url_for('learn_oze') }}" class="listElem">OZE i środowisko</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="goUpContent">
+                <div class="goUp">
+                    <img src="/static/img/icons/arrowblackUP.svg" alt="">
+                </div>
+            </div>
+        </div>
+{% endblock %}

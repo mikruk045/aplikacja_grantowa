@@ -1,0 +1,148 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Złoto, srebro, miedź i żelazo{% endblock %}
+{% block urlPREV %}{{ url_for('learn_gas') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_tin') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    let l3 = '{{ dane[2] | tojson }}';
+    let l4 = '{{ dane[3] | tojson }}';
+    let l5 = '{{ dane[4] | tojson }}';
+    let l6 = '{{ dane[5] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    l3 = l3.substring(1, l3.length-1);
+    l4 = l4.substring(1, l4.length-1);
+    l5 = l5.substring(1, l5.length-1);
+    l6 = l6.substring(1, l6.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+    let out3 = JSON.parse(l3);
+    let out4 = JSON.parse(l4);
+    let out5 = JSON.parse(l5);
+    let out6 = JSON.parse(l6);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out4, pickaxemarkershort);
+    generatePoints(out6, pickaxemarkershort);
+
+    let lp1 = L.featureGroup();
+    let lp2 = L.featureGroup();
+    let lp3 = L.featureGroup();
+    let lp4 = L.featureGroup();
+    generatePolygons(out1, '#00332b', lp1);
+    generatePolygons(out2, '#424242', lp2);
+    generatePolygons(out3, '#85221d', lp3);
+    generatePolygons(out5, '#7D6400', lp4);
+
+    mapa.addLayer(markers);
+    mapa.addLayer(lp1);
+    mapa.addLayer(lp3);
+    mapa.addLayer(lp2);
+    mapa.addLayer(lp4);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Żelazo", 1, 0, 0, 0, '#00332b');
+    initiateStyle(lp2, "Srebro", 1, 0, 0, 0, '#424242');
+    initiateStyle(lp3, "Miedź", 1, 0, 0, 0, '#85221d');
+    initiateStyle(lp4, "Złoto", 1, 0, 0, 0, '#7D6400');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Złoto</button>
+<button class="descButton">Żelazo</button>
+<button class="descButton">Miedź i srebro</button>
+<button class="descButton">Glin</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>ZŁOTO</h4>
+    <p>Złoto to ciężki, miękki i&nbsp;błyszczący pierwiastek chemiczny, będący <strong>najbardziej ciągliwym i&nbsp;kowalnym metalem.</strong> Ten jasnożółty surowiec nie utlenia się w wodzie oraz powietrzu, a&nbsp;także jest najmniej radioaktywnym pierwiastkiem. Metal ten w&nbsp;postaci rodzimej <strong>występuje jako samorodki lub ziarna w&nbsp;skałach litych, żyłach i&nbsp;osadach aluwialnych, a&nbsp;rzadziej jako związek z&nbsp;tellurem.</strong> Złoto stanowiło podstawę polityki monetarnej w&nbsp;rozwoju ludzkości, obecnie używane jest głównie w&nbsp;przemyśle jubilerskim, stomatologii czy elektronice.</p>
+    <img class="imageRaster" src="/static/img/text/zloto.jpg" alt="zloto">
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p><strong>W&nbsp;Polsce złoto w&nbsp;czystej postaci nie jest już eksploatowane, wydobywa się je ze złóż rud miedzi w&nbsp;rejonie Lubina, Polkowic i&nbsp;Rudnej. Produkcja natomiast ma miejsce w&nbsp;hucie miedzi w&nbsp;Głogowie.</strong> Jedynym przedsiębiorstwem zajmującym się wydobywanie złota jest KGHM, a&nbsp;wielkość produkcji wyniosła w&nbsp;2017 roku 3,6 tony. Innymi rejonami, gdzie eksploatowano złoto pod różnymi postaciami były między innymi:</p>
+    <ul>
+    <li><strong>Śląsk</strong> - eksploatacja tam prowadzona była głównie w&nbsp;średniowieczu, a&nbsp;złoto wydobywano z&nbsp;piasków rzecznych w&nbsp;okolicach Legnicy, Bolesławca czy Szklarskiej Poręby. Znaczną rolę odegrali w&nbsp;połowie XII wieku Walonowie, którzy prowadzili bardzo intensywną eksploatację nie tylko złota ale również i&nbsp;innych metali. Wydobycie w&nbsp;tym rejonie zakończyło się w&nbsp;XV wieku, gdyż złoża były na wyczerpaniu i&nbsp;dalsza eksploatacja była nieopłacalna.</li>
+    <li><strong>Złoty Stok</strong> - złoża występowały tam razem z&nbsp;rudami arsenu, a&nbsp;w&nbsp;okresie największej eksploatacji (XVI wiek) wydobywano tam 110&nbsp;kg surowca rocznie. Pozyskiwanie złota było jednak niebezpiecznym procesem, gdyż wykorzystywało ołów oraz znaczne ilości drewna, którego po pewnym czasie zaczęło brakować.</li>
+    <li><strong>Karpaty i&nbsp;Podhale</strong> - wydobycie zaczęło się tam w&nbsp;XV wieku, jednak bardzo szybko zaniechano eksploatacji ze względu na nierentowność kopalni, które działały okresowo, krótko i&nbsp;nie dostarczały dużo surowca.</li>
+    </ul>
+    <p>Coraz nowsze technologie pozwalają na wydobycie mniej opłacalnych złóż, jednak minie jeszcze sporo czasu zanim zostanie ono ponownie eksploatowane na większą skalę. Miejsca, a&nbsp;właściwie okoliczne miasta, w&nbsp;których pozyskiwano złoto zyskały nie tylko finansowo, ale do dziś pozostają popularne w&nbsp;turystyce. Legendy związane ze złotem zachęcają wielu ludzi do odwiedzenia tych miejsc. Muzea, parki rozrywki czy dobrze rozwinięta baza noclegowa sprawia, że turyści często zwiedzają dane miejsca w&nbsp;celu zapoznania się z&nbsp;historią lub zobaczenia nieczynnych już kopalń.</p>
+    <hr class='bibHR'>
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Bielański A., Warszawa 2002 <i>Podstawy chemii nieorganicznej</i>, PWN</li>
+        <li><a href=https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12588-zloto.html>www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12588-zloto.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>ŻELAZO</h4>
+    <p>Żelazo to jeden z&nbsp;najczęściej występujących pierwiastków w&nbsp;skorupie ziemskiej. To właśnie jemu zawdzięczamy rozwój cywilizacji, ponieważ <strong>stanowi 95% wszystkich metali wykorzystywanych przez człowieka.</strong> Surowiec ten otrzymywany jest poprzez <strong>wytopienie tlenków z&nbsp;rud, a&nbsp;następnie oddzielenie ich od zanieczyszczeń.</strong> Żelazo stanowi podstawę rozwoju człowieka. Od czasów prehistorycznych, zastąpiło użycie stopów miedzi, aż do teraz, stanowiąc jeden z&nbsp;najważniejszych surowców w&nbsp;przemyśle metalurgicznym. Niski koszt produkcji i&nbsp;duża wytrzymałość sprawiły, że jest ono chętnie wykorzystywane do budowy elementów konstrukcyjnych budynków, samochodów czy statków.</p>
+    <img class="imageRaster" src="/static/img/text/zelazo.jpg" alt="zelazo">
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>Rudy żelaza w&nbsp;Polsce występują w&nbsp;<strong>dwóch rodzajach - osadowych i&nbsp;magmowych. Złoża osadowe w&nbsp;postaci syderytów występują głównie w&nbsp;okolicach Łęczycy, Gór Świętokrzyskich, Częstochowy i&nbsp;Wielunia, a&nbsp;złoża magmowe w&nbsp;okolicy Suwałk.</strong> To właśnie w&nbsp;tych miejscach w&nbsp;XX wieku prowadzono wydobycie rud. Obecnie ze względu na duże rozproszenie złóż, niską zawartość metalu w&nbsp;rudzie oraz duży stopień wyeksploatowania kopalnie w&nbsp;rejonach: częstochowsko-wieluńskim, świętokrzyskim oraz łęczyńskim nie mają znaczenia w&nbsp;wydobyciu. Złoża znajdujące się na Suwalszczyźnie również nie nadają się do eksploatacji, gdyż zawierają w&nbsp;sobie domieszkę tytanu i&nbsp;wanadu, które nie pozwalają na dalszą obróbkę metalu.</p>
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p>Trudne warunki zalegania złóż rud żelaza oraz duża degradacja środowiska podczas eksploatacji spowodowały, że <strong>w Polsce zaniechano wydobycia tego surowca</strong>, ze względów ekonomicznych. Duże zapotrzebowanie spowodowało konieczność importu głównie z&nbsp;Ukrainy, Brazylii, Szwecji czy Chin.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'>
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Bielański A., Warszawa 2002 <i>Podstawy chemii nieorganicznej</i>, PWN</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12709-zelazo.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12709-zelazo.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>MIEDŹ I SREBRO</h4>
+    <p>Złoża miedzi powstały <strong>wyniku wznoszącego przepływu roztworów metalonośnych przez skały kontaktu czerwonego spągowca i&nbsp;cechsztynu</strong> (piaskowce, łupki i&nbsp;dolomity). Przepływ spowodował utlenienie skał oraz strefowe rozmieszczenie metali. W&nbsp;Polsce proces ten miał miejsce <strong>około 200 milionów lat temu. Miedź w&nbsp;czystej postaci (rodzimej) stanowi tylko około 1% wszystkich zasobów,</strong> zazwyczaj pozyskuje się ją z&nbsp;innych surowców mineralnych. Jest jednym z&nbsp;najbardziej użytecznych metali na świecie. Dzięki właściwościom fizycznym miedź wykorzystywana jest między innymi do produkcji przewodów, złączy czy elementów grzewczych, ale także w&nbsp;wyrobie blacharskim oraz jubilerskim (w&nbsp;połączeniu ze srebrem i&nbsp;złotem). Istotne jest również wykorzystanie jej w&nbsp;medycynie, gdyż szybko zabija bakterie, wirusy i&nbsp;grzyby. <strong>Wraz z&nbsp;miedzią bardzo często współwystępuje srebro.</strong> Ten jasny metal o&nbsp;dużym połysku jest bardzo miękki i&nbsp;kowalny, dzięki czemu wykorzystywany jest głównie w&nbsp;przemyśle jubilerskim.</p>
+    <img class="imageRaster" src="/static/img/text/miedz.jpg" alt="miedz">
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>Początkowo złoża miedzi i&nbsp;srebra odkryto w Górach Świętokrzyskich i&nbsp;Karpatach. Były one jednak małe i&nbsp;dziś mają jedynie znaczenie historyczne. Jedno z&nbsp;największych złóż miedziowo-srebrowych znajdowało się na Dolnym Śląsku. Eksploatacja tych złóż sprawiła, że Polska była jednym z&nbsp;liderów w światowej produkcji miedzi i&nbsp;srebra.</p>
+    <p>Obecnie głównymi obszarami występowania są:</p>
+    <ul>
+    <li><strong>Monoklina Przedsudecka</strong></li>
+    <li><strong>Niecka Północnosudecka </strong></li>
+    </ul>
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p>Najwięcej miedzi i&nbsp;srebra wydobywane jest w&nbsp;kopalniach zlokalizowanych w:&nbsp;Głogowie Głębokim, Sieroszowicach, Rudnej i&nbsp;koło Lubina. <strong>Największą kopalnią jest Rudna.</strong></p>
+    <p>Eksport i&nbsp;import tych surowców odbywa się głównie z&nbsp;krajami Europy Zachodniej (tj. Niemcy, Francja, Wielka Brytania, Włochy).</p>
+    <hr class='bibHR'>
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Bielański A., Warszawa 1981 <i>Chemia ogólna i nieorganiczna</i>, PWN</li>
+        <li>Bielański A., Warszawa 2002 <i>Podstawy chemii nieorganicznej</i>, PWN</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12607-miedz.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12607-miedz.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12620-srebro.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12620-srebro.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_06a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>GLIN</h4>
+<p>Glin to <strong>najczęściej występujący metal w&nbsp;skorupie ziemskiej</strong>, oraz trzeci (po tlenie i&nbsp;krzemie) pierwiastek. W&nbsp;postaci metalicznej najczęściej <strong>określany jest jako aluminium,</strong> jednak obie nazwy mimo częstego stosowania potocznego są poprawne. Charakteryzuje się srebrzystobiałą barwą, dużą miękkością oraz kowalnością, łatwo wchodzi w&nbsp;reakcję z&nbsp;tlenem co sprawia, że w&nbsp;<strong>postaci rodzimej występuje tylko we wnętrzach niektórych wulkanów lub w&nbsp;głębiach oceanicznych.</strong> Aluminium jest szeroko stosowane w&nbsp;prawie każdej dziedzinie przemysłu i&nbsp;życia codziennego. Zaczynając od produkcji blach aluminiowych wykorzystywanych w&nbsp;motoryzacji, budownictwie czy elektronice, po przedmioty w&nbsp;gospodarstwie domowym np. sztućce lub garnki. Istotną rolę odgrywa również w&nbsp;procesach oczyszczania wody, medycynie a&nbsp;nawet kosmetyce.</p>
+<img class="imageRaster" src="/static/img/text/glin.jpg" alt="glin">
+<p><strong>WYSTĘPOWANIE:</strong></p>
+<p>Glin <strong>w postaci metalicznej pozyskiwany jest wyłącznie z&nbsp;boksytów</strong> (ilastych skał powstających z&nbsp;wietrzenia skał glinokrzemianowych). Jednak zarówno wydobycie jak i&nbsp;obróbka są bardzo drogie, dlatego <strong>aluminium najczęściej pozyskiwane jest w&nbsp;procesie recyklingu. W&nbsp;Polsce małe złoża boksytów znajdują się na Dolnym Śląsku, jednak nie są eksploatowane.</strong></p>
+<hr class='bibHR'>
+<h4 class="bibTitle">Źródło:</h4>
+<ul class='bibContent'> 
+    <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+    <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+    <li>Eichstaedt I., Warszawa 1973 <i>Księga pierwiastków</i>, Wiedza Powszechna</li>
+    <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12652-glin-2.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12652-glin-2.html (dostęp: 31.05.2021 r.)</a></li>
+    <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+</ul>
+<br>
+</div>
+{% endblock %}

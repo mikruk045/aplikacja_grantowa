@@ -1,0 +1,86 @@
+{% extends 'baseLearning.html' %}
+{% block title %}Sól kamienna i potasowa{% endblock %}
+{% block urlPREV %}{{ url_for('learn_sulfur') }}{% endblock %}
+{% block urlNEXT %}{{ url_for('learn_limestone') }}{% endblock %}
+{% block DBscript %}
+<script charset="utf-8">
+    let l1 = '{{ dane[0] | tojson }}';
+    let l2 = '{{ dane[1] | tojson }}';
+    let l3 = '{{ dane[2] | tojson }}';
+    let l4 = '{{ dane[3] | tojson }}';
+    l1 = l1.substring(1, l1.length-1);
+    l2 = l2.substring(1, l2.length-1);
+    l3 = l3.substring(1, l3.length-1);
+    l4 = l4.substring(1, l4.length-1);
+    let out1 = JSON.parse(l1);
+    let out2 = JSON.parse(l2);
+    let out3 = JSON.parse(l3);
+    let out4 = JSON.parse(l4);
+
+    let markers = L.markerClusterGroup({showCoverageOnHover: false, animate: true});
+
+    let pkt = L.layerGroup();
+    generatePoints(out2, pickaxemarkershort, pkt);
+    generatePoints(out4, pickaxemarkershort, pkt);
+
+    let lp1 = L.featureGroup();
+    let lp2 = L.featureGroup();
+    generatePolygons(out1, '#4f4e4e', lp1);
+    generatePolygons(out3, '#c93c3c', lp2);
+
+    mapa.addLayer(lp1);
+    mapa.addLayer(lp2);
+    mapa.addLayer(markers);
+
+    initiateStyle(markers, "Kopalnie", 0);
+    initiateStyle(lp1, "Sól kamienna", 1, 0, 0, 0, '#4f4e4e');
+    initiateStyle(lp2, "Sól potasowa", 1, 0, 0, 0, '#c93c3c');
+</script>
+{% endblock %}
+{% block descBTN %}
+<button class="descButton activedescmode" disabled>Sól kamienna</button>
+<button class="descButton">Sól potasowa</button>
+{% endblock %}
+{% block descCTNT %}
+<div class="descPage activePage">
+    <h4>SÓL KAMIENNA</h4>
+    <p>Sól kamienna (inaczej halityt) powstaje w&nbsp;wyniku <strong>parowania wody morskiej</strong> (w&nbsp;lagunach, zatokach czy szelfach), lub w&nbsp;słonych jeziorach, w&nbsp;klimacie suchym i&nbsp;gorącym. Pokłady tej skały osadowej w&nbsp;Polsce powstały głównie w&nbsp;<strong>permie</strong> (formacja cechsztyńska) i&nbsp;<strong>miocenie</strong> (formacja mioceńska). Główne zastosowanie ma ona w&nbsp;przemyśle spożywczym oraz chemicznym. Jej <strong>wartości lecznicze i&nbsp;konserwujące</strong> zostały odkryte już w&nbsp;starożytności. W&nbsp;średniowieczu była jednym z&nbsp;najcenniejszych surowców, gdyż pełniła rolę środka płatniczego (“białe złoto”). Ze względu na swoją wartość mogła być nawet przyczyną wielu konfliktów zbrojnych.</p>
+    <img class="imageRaster" src="/static/img/text/sol_kamienna.jpg" alt="sol_kamienna">
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p><strong>Sól permska obejmuje obszar niemal 2/3 Polski</strong> i&nbsp;jest pozostałością po płytkim i&nbsp;ciepłym morzu. Z&nbsp;kolei <strong>mioceńska występuje w&nbsp;pasie na obszarze Zapadliska Przedkarpackiego</strong> (od Śląska przez Wieliczkę, Bochnię w&nbsp;kierunku wschodnim), a&nbsp;powstała w&nbsp;wyniku wyparowania niewielkiego zbiornika wodnego, odizolowanego od otwartego morza.</p>
+    <img class="imageVector" src="/static/img/text/solkamienna.svg" alt="sol_kamienna">
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p><strong>Największą kopalnią soli w&nbsp;Polsce była ta, znajdująca się w&nbsp;Wieliczce</strong>. Posiada ona 9 poziomów z&nbsp;czego pierwszy sięga 64 metry w&nbsp;głąb ziemi, a&nbsp;najniższy - 327 metrów. Łączna długość korytarzy i&nbsp;wyrobisk przekracza 300 km. Eksploatacji złoża zaprzestano całkowicie 30 czerwca 1996 roku, a&nbsp;od wielu lat stanowi atrakcję turystyczną. To niezwykle popularne miejsce wycieczek zostało wpisane na “Listę Światowego Dziedzictwa UNESCO” oraz uznane za jeden z&nbsp;siedmiu cudów Polski. Obecnie sól kamienna z&nbsp;19 udokumentowanych złóż <strong>wydobywana jest z&nbsp;zaledwie 5 – Bądzów, Góra, Mongilno I, Mechelinki i Kłodawa I.</strong></p>
+    <p>Wymiana handlowa soli kamiennej w&nbsp;Polsce odbywa się głównie z krajami europejskimi (Niemcy, Czechy, Francja, Szwecja, Ukraina).</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>Wojnowski J. (red.), Warszawa 2004 <i>Wielka Encyklopedia PWN</i>, Naukowe PWN</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12581-sol-kamienna.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12581-sol-kamienna.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/chemiczne/sol_kamienna">www.geoportal.pgi.gov.pl/surowce/chemiczne/sol_kamienna (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+<div class="descPage">
+    <h4>SÓL POTASOWA</h4>
+    <p>Sól potasowa powstaje w&nbsp;podobnych warunkach jak sól kamienna, w&nbsp;klimacie suchym i&nbsp;gorącym, w&nbsp;wyniku <strong>parowania płytkich zbiorników morskich.</strong> W&nbsp;cyklu parowania powstają jako ostatnie po gipsach i&nbsp;anhydrytach oraz soli kamiennej. Dzięki swoim właściwościom wykorzystywana jest głównie do produkcji nawozów, gdyż zwiększa urodzajność i&nbsp;poprawia jakość roślin. W&nbsp;połączeniu z&nbsp;solą morską może być wykorzystywana jako sól spożywcza jednak nie zaleca się stosowania jej w&nbsp;dużych ilościach, ponieważ może obciążać nerki.</p>
+    <p><strong>WYSTĘPOWANIE:</strong></p>
+    <p>Soli potasowej jest znacznie mniej niż kamiennej, ponieważ potas często zatrzymywany jest w glebach i&nbsp;wykorzystywany przez rośliny, sole te są najłatwiej rozpuszczalne podczas zalewu. <strong>W Polsce występuje w&nbsp;formacji cechsztyńskiej na Niżu Polskim</strong> (w&nbsp;okolicach Inowrocławia, Wapnia czy Kłodawy).</p>
+    <p><strong>WYDOBYCIE:</strong></p>
+    <p><strong>Sól potasowa w&nbsp;Polsce obecnie nie jest eksploatowana.</strong> Import soli potasowej pochodzi z&nbsp;Białorusi, Rosji, Niemiec czy też Izraela.</p>
+    <hr class='bibHR'> 
+    <h4 class="bibTitle">Źródło:</h4>
+    <ul class='bibContent'> 
+        <li>Więckowski M., Malarz R., Warszawa 2020 <i>Oblicza geografii 3</i>, Nowa Era</li>
+        <li>Błaszczykiewicz W., Jerun O., Wawrzkowicz A., Warszawa 2020 <i>Teraz matura</i>, Nowa Era</li>
+        <li>xWojnowski J. (red.), Warszawa 2004 <i>Wielka Encyklopedia PWN</i>, Naukowe PWN</li>
+        <li><a href="https://www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12582-sole-magnezowo-potasowe.html">www.pgi.gov.pl/muzeum/kopalnia-wiedzy-1/12582-sole-magnezowo-potasowe.html (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="http://geoportal.pgi.gov.pl/surowce/chemiczne/sole_k-mg">geoportal.pgi.gov.pl/surowce/chemiczne/sole_k-mg (dostęp: 31.05.2021 r.)</a></li>
+        <li><a href="https://www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf">www.geografia24.eu/geo_prezentacje_pr_2/302_5_przemysl/r2_5_08a.pdf (dostęp: 31.05.2021 r.)</a></li>
+    </ul>
+    <br>
+</div>
+{% endblock %}
